@@ -1,36 +1,69 @@
 class Person():
     def __init__(self):
         self.emotion = Emotion()
+        self.wellbeing = WellBeing()
+        self.identity = Identity()
 
 class Emotion():
-    """
-    Class : Emotions
-    """
     def __init__(self, valence=0, arousal=0):
+        # Emotional Valence
+        # This​ ​is​ ​an​ ​integer​ ​value​ ​from​ 1​ ​to​ 10​ ​that  expressed​ ​the​ ​strength​ ​of​ ​the​ ​sentiment​ ​(deviation​ ​from​ ​5,​ ​further  deviation​ ​=​ ​more​ ​strength)
+        # ​​and​ ​positive​ ​or​ ​negative​ ​elements​ ​of​ ​the  emotion.​ 
+        # ​Note :​ ​this​ ​may​ ​changing​ ​rapidly​ ​in​ ​the​ ​course​ ​of​ ​a​ ​few seconds
         self.valence = valence
-        self.arousal = arousal
 
-        self.wellbeing = WellBeing()
+        # Emotional Arousal
+        # This​ ​is​ ​an​ ​integer​ ​value​ ​containing​ ​the​ ​value​ ​of​ ​how​ ​aroused​ ​that​ ​emotion is.
+        # 1 = Low Arousal 10 = High Arousal
+        self.arousal = arousal
     
 class WellBeing():
     def __init__(self):
-        # Scale from 1 - 10
-        # Deviation from average(5) exhibits traits about person
-        # Mental Variables
+        # Mental Well Being
         self.mental = MentalWellBeing()
+        # Physical Well Being
         self.physical = PhysicalWellBeing()
 
 class PhysicalWellBeing(WellBeing):
-    def __init__(self, sick = 1, tired = 1, hunger = 1, thirst=1, strength = 1, isAddict = 0):
+    def __init__(self, sick = 1, tired = 1, hunger = 1, thirst=1):
+        # Physical Sickness
+        # An​ ​integer​ ​value​ ​of​ ​sickness​ ​felt​ ​at​ ​a​ ​given​ ​time.​
+        # ​This​ ​is​ ​directly​ ​linked​ ​to  sentiment​ ​values​ ​overall​ ​and​ ​sentiment​ ​values​ ​of​ ​the​ ​entire​ ​experience, smell,​ ​and​ ​sight.​
+        # ​These​ ​sentiment​ ​values​ ​are​ ​inversely​ ​related​ ​as​ ​the  sickness​ ​value​ ​rises​ ​the​ ​sentiment​ ​values​ ​drop.
+        # 1 = Not Sick 10 = Terminal Illness
         self.sick = sick
-        self.tired = tired
-        self.hunger = hunger
-        self.strength = strength
-        self.isAddict = isAddict
 
+        # Physical Tiredness
+        # This​ ​is​ ​an​ ​integer​ ​value​ ​of​ ​the​ ​tiredness​ ​of​ ​the​ ​experience​ ​at​ ​a​ ​given​ ​time,  this​ ​has​ ​a​ ​large​ ​effect​ ​on​ ​the​ ​logic​ ​of​ ​Natural​ ​Language​ ​Processing​ ​of​ ​the  being.​ 
+        # ​This​ ​raises​ ​the​ ​social​ ​anxiety​ ​variables​ ​and​ ​lowers​ ​the​ ​strength  variables.​ ​Arousal​ ​status​ ​is​ ​lowered​ ​significantly​ ​by​ ​this​ ​value​ ​raising.​ ​​
+        # ​This  vaguely​ ​lowers​ ​overall​ ​sentiment​ ​values.
+        # 1 = Awake 10 = Extreme Sleep Deprivation
+        self.tired = tired
+
+        # Physical Hunger
+        # This​ ​is​ ​an​ ​integer​ ​value​ ​of​ ​the​ ​hunger​ ​value​ ​of​ ​the​ ​experience​ ​at​ ​a​ ​given  time.​ ​
+        # This​ ​is​ ​generally​ ​used​ ​to​ ​redirect​ ​the​ ​purpose​ ​of​ ​the​ ​next​ ​experience and​ ​if​ ​this​ ​value​ ​gets​ ​to​ ​high​ ​sickness​ ​begins​ ​to​ ​rise​ ​as​ ​well.​
+        # This​ ​value​ ​is  compressed​ ​immediately​ ​unless​ ​it​ ​deviates​ ​abnormally​ ​from​ ​1.
+        # 1 = Normal 10 = Near Death Hunger
+        self.hunger = hunger
+
+        # Physical Thirst
+        # This​ ​is​ ​an​ ​integer​ ​value​ ​of​ ​the​ thirst ​value​ ​of​ ​the​ ​experience​ ​at​ ​a​ ​given  time.​ ​
+        # This​ ​is​ ​generally​ ​used​ ​to​ ​redirect​ ​the​ ​purpose​ ​of​ ​the​ ​next​ ​experience and​ ​if​ ​this​ ​value​ ​gets​ ​to​ ​high​ ​sickness​ ​begins​ ​to​ ​rise​ ​as​ ​well.​
+        # This​ ​value​ ​is  compressed​ ​immediately​ ​unless​ ​it​ ​deviates​ ​abnormally​ ​from​ ​1.
+        # 1 = Normal 10 = Near Death Thirst
+        self.thirst = thirst
+
+        self.addiction = PhysicalAddiction()
+
+
+class PhysicalAddiction(PhysicalWellBeing):
+    def __init__(self, level = 1, timesince = 0):
+        self.level = level
+        self.timesince = timesince
 
 class MentalWellBeing(WellBeing):
-    def __init__(self, sa =5, strength = 5, satself = 5, satothers = 5, satpurp = 5, satspir = 5):
+    def __init__(self, sa = 5, strength = 5, satself = 5, satothers = 5, satpurp = 5, satspir = 5):
         # Social Anxiety
         # This​ ​is​ ​actually​ ​a​ ​very​ ​good​ ​measure​ ​of​ ​introvertedness​ ​vs​ ​extrovertedness,  this​ ​is​ ​an​ ​integer​ ​describing​ ​the​ ​anxiety​ ​of​ ​the​ ​person​ ​in​ ​social​ ​situations.   
         # 5​ ​=​ ​neutral​ ​1 ​=​ ​Extreme​ ​introvertedness​ ​10​ ​=​ ​Extreme  extrovertedness
@@ -70,3 +103,8 @@ class MentalWellBeing(WellBeing):
         # 1 = Extreme questioning of spiritual and moral values 10 = Total Belief of Ideology
         self.satspir = satspir
     
+class Identity():
+    def __init__(self, name="John Doe"):
+        # Name
+        # Personal identifier of one's self
+        self.name = name
