@@ -1,8 +1,11 @@
 class Person():
     def __init__(self):
         self.emotion = Emotion()
+        self.emotion.__init__()
         self.wellbeing = WellBeing()
+        self.wellbeing.__init__()
         self.identity = Identity()
+        self.identity.__init__()
 
 class Emotion():
     def __init__(self, valence=0, arousal=0):
