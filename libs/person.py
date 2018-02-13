@@ -8,17 +8,27 @@ class Person():
         self.identity.__init__()
 
 class Emotion():
-    def __init__(self, valence=0, arousal=0):
-        # Emotional Valence
-        # This​ ​is​ ​an​ ​integer​ ​value​ ​from​ 1​ ​to​ 10​ ​that  expressed​ ​the​ ​strength​ ​of​ ​the​ ​sentiment​ ​(deviation​ ​from​ ​5,​ ​further  deviation​ ​=​ ​more​ ​strength)
-        # ​​and​ ​positive​ ​or​ ​negative​ ​elements​ ​of​ ​the  emotion.​ 
-        # ​Note :​ ​this​ ​may​ ​changing​ ​rapidly​ ​in​ ​the​ ​course​ ​of​ ​a​ ​few seconds
-        self.valence = valence
+    def __init__(self, anger=0, fear=0, happy=0, sad=0, suprise=0):
+        # Angry-Disgusted
+        # 0 = No Anger 9 = Pure Corelation with Anger
+        self.anger = anger
 
-        # Emotional Arousal
-        # This​ ​is​ ​an​ ​integer​ ​value​ ​containing​ ​the​ ​value​ ​of​ ​how​ ​aroused​ ​that​ ​emotion is.
-        # 1 = Low Arousal 10 = High Arousal
-        self.arousal = arousal
+        # Fearful
+        # 0 = No Fear 9 = Pure Fear
+        self.fear = fear
+
+        # Happy
+        # 0 = Nuetral 9 = Full of Happiness
+        self.happy = happy
+
+        # Sadness
+        # 0 = Nuetral 9 = Full of Sadness
+        self.sad = sad
+
+        # Suprise
+        # 0 - Nuetral 9 = Completely Suprised
+        self.suprise = suprise
+        
     
 class WellBeing():
     def __init__(self):

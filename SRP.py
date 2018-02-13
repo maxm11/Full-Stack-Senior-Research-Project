@@ -1,3 +1,5 @@
-from webbrowser import open_new_tab
+import libs.person as lp
+def init_person():
+    person = lp.Person()
 
-open_new_tab('http://127.0.0.1:8000')
+    return person
