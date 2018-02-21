@@ -1,5 +1,5 @@
-var currentTextScore = -0.25
-var currentTextMag = -10
+var currentTextScore = 1
+var currentTextMag = 0.6
 
 function colorGrad (value) {
     if(value<0){
@@ -20,15 +20,15 @@ function colorGrad (value) {
            green = 0; 
         }
         else{
-            red = -1*(255*(-1*value));
-            green = -1*(255*(-1*value));
+            red = 255 + (255*(-1*value));
+            green = 255 + (255*(-1*value));
         }
     }
     red = Math.round(red)
     green = Math.round(green)
     blue = Math.round(blue)
     var rgbReturn = 'rgba('
-    return rgbReturn.concat(red.toString()).concat(", ").concat(blue.toString()).concat(", ").concat(green.toString())
+    return rgbReturn.concat(red.toString()).concat(", ").concat(green.toString()).concat(", ").concat(blue.toString())
 }
 // Current Text Sentiment - Score Chart
 var currentTextScoreChartData = {
