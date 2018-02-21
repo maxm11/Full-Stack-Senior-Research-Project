@@ -1,34 +1,25 @@
-from google.cloud import language_v1
+from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
+from google.oauth2 import service_account
 from sys import maxunicode
 import six
 
-def __main__(text):
-    """Detects entity sentiment in the provided text."""
-    client = language_v1.LanguageServiceClient()
+class TextSent():
+    def textSent(self, text):
+        
+        credentials = service_account.Credentials.from_service_account_file('../creds/SRPConcAI-d1fac92d729b.json')
+        """Detects entity sentiment in the provided text."""
 
-    if isinstance(text, six.binary_type):
-        text = text.decode('utf-8')
+        # Instantiates a client
+        client = language.LanguageServiceClient(credentials=credentials)
 
-    document = {
-        'type' : enums.Document.Type.PLAIN_TEXT,
-        'content': text.encode('utf-8')
-    }
+        # The text to analyze
+        document = types.Document(
+            content=text,
+            type=enums.Document.Type.PLAIN_TEXT)
 
-    features = {
-        "extractSyntax": False,
-        "extractEntities": False,
-        "extractDocumentSentiment": True,
-        "extractEntitySentiment": False,
-        "classifyText": False
-    }
+        # Detects the sentiment of the text
+        sentiment = client.analyze_sentiment(document=document).document_sentiment
 
-    # Detect and send native Python encoding to receive correct word offsets.
-    encoding = enums.EncodingType.UTF32
-    if maxunicode == 65535:
-        encoding = enums.EncodingType.UTF16
-
-    response = client.annotate_text(document, features, encoding)
-
-    return response
+        return sentiment.score, sentiment.magnitude
