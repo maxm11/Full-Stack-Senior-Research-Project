@@ -63,6 +63,23 @@ class DBSRP():
 
         # Check that connections closed
         return True
+    
+    def add_time_record(self, time):
+        # Get the database connection and the cursor
+        conn, cur = self.init()
+
+        # Execute command
+        cur.execute("UPDATE time SET time=%s", (time, ))
+
+        # Commit change
+        conn.commit()
+
+        # Close Connection and Cursor
+        cur.close()
+        conn.close()
+
+        # Check that connections closed
+        return True
 
     def get_entity(self, name):
         # Get the database connection and the cursor
@@ -97,6 +114,22 @@ class DBSRP():
 
         # Return records as an array
         df = DataFrame.from_records(cur, columns=['name', 'content', 'sent_score', 'sent_magnitude', 'processed', 't_create', 'id'])
+
+        # Close Connection and Cursor
+        cur.close()
+        conn.close()
+
+        return df
+    
+    def get_time(self):
+        # Get the database connection and the cursor
+        conn, cur = self.init()
+        
+        # Execute command
+        cur.execute("SELECT * FROM time")
+
+        # Return records as an array
+        df = DataFrame.from_records(cur, columns=['time'])
 
         # Close Connection and Cursor
         cur.close()
