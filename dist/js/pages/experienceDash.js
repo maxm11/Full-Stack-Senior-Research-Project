@@ -107,7 +107,7 @@ window.onload = function() {
             scales: {
                 xAxes:[{
                     ticks: {
-                        suggestedMin: -1,
+                        beginAtZero: true,
                         suggestedMax: 1
                     }
                 }]
