@@ -1,0 +1,124 @@
+{% extends "adminlte/base.html" %}
+
+{% block title %}Max SRP{% endblock %}
+
+{% block body_class %}skin-black-light layout-boxed{% endblock %}
+
+{% block nav_header %}
+  {% include 'adminlte/lib/_main_header.html' %}
+    {% include 'adminlte/lib/_main_sidebar.html' with entitylist=entitylist %}
+{% endblock %}
+
+{% block content_header %}
+  <section class="content-header">
+      <h1>
+        Create Entity
+      </h1>
+      {% block breadcrumbs %}{% endblock %}
+    </section>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box {% if errormessage %} box-danger {% else %} box-default {% endif %}">
+          <div class="box-header with-border">
+            <h3 class="box-title">Create</h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <form role="form" action="{% url 'create' %}" method="POST">
+            {% csrf_token %}
+            <div class="box-body">
+              <h4>Identity</h4>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control" value="John Doe">
+              </div>
+              <h4>Emotions</h4>
+              <div class="row">
+              <div class="col-xs-2">
+                <div class="form-group">
+                <label for="anger">Inital Happy</label>
+                <input type="text" name="happy" class="form-control" value="0">
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+               <label for="sad">Inital Sadness</label>
+               <input type="text" name="sad" class="form-control" value="0">
+               </div>
+             </div>
+             <div class="col-xs-2">
+              <div class="form-group">
+              <label for="suprise">Inital Suprise</label>
+              <input type="text" name="suprise" class="form-control" value="0">
+              </div>
+            </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                <label for="angry">Inital Angry</label>
+                <input type="text" name="angry" class="form-control" value="0">
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                <label for="bored">Inital Bored</label>
+                <input type="text" name="bored" class="form-control" value="0">
+                </div>
+              </div>
+              
+              
+            </div>
+            <div class='row'>
+              <div class="col-xs-2">
+                <div class="form-group">
+                <label for="empty">Inital Empty</label>
+                <input type="text" name="empty" class="form-control" value="0">
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                <label for="enthusiasm">Inital Enthusiasm</label>
+                <input type="text" name="enthusiasm" class="form-control" value="0">
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                <label for="neutral">Inital Neutral</label>
+                <input type="text" name="neutral" class="form-control" value="1">
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                <label for="worry">Inital Worry</label>
+                <input type="text" name="worry" class="form-control" value="0">
+                </div>
+              </div>
+              <div class="col-xs-2">
+                  <div class="form-group">
+                  <label for="love">Inital Love</label>
+                  <input type="text" name="love" class="form-control" value="0">
+                  </div>
+                </div>
+            </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.box -->
+
+
+      </div>
+      <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+  </section>
+{% endblock %}

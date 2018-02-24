@@ -1,0 +1,20 @@
+{% extends 'adminlte/lib/_main_sidebar.html' %}
+
+{% block user_panel %}{% endblock %}
+
+{% block nav_links %}
+    <li class="{% if nbar == 'home' %}active{% endif %}">
+    <a href="{% url 'createEntity' %}">
+        <i class="fa fa-user"></i> <span>Create Entity</span>
+    </a>
+    </li>
+    <li class="header">ENTITIES</li>
+    {% for entity in entitylist %}
+    {% url 'dashEntity' entity.id as enURL%}
+    <li class="{% if request.path == enURL %}active{% endif %}">
+    <a href="{% url 'dashEntity' entity.id %}">
+        {{ entity.name }}
+    </a>
+    </li>
+    {% endfor %}
+{% endblock nav_links %}

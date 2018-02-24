@@ -1,0 +1,266 @@
+{% extends "adminlte/base.html" %}
+{% load static %}
+
+{% static "SRP/Chart.bundle.min.js" %}
+
+{% block title %}Max SRP{% endblock %}
+
+{% block body_class %}skin-black-light layout-boxed{% endblock %}
+
+{% block nav_header %}
+  {% include 'adminlte/lib/_main_header.html' %}
+    {% include 'adminlte/lib/_main_sidebar.html' with entitylist=entitylist %}
+{% endblock %}
+
+{% block content_header %}
+  <section class="content-header">
+      <h1>
+        Entity : {{entity.name}}
+      </h1>
+      {% block breadcrumbs %}
+        <ol class="breadcrumb">
+          <li class="active"><a href="{% url 'dashEntity' entity.id}"> {{entity.name}} </a></li>
+        </ol>
+      {% endblock %}
+    </section>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+  <!-- Small boxes (Stat box) -->
+  <div class="row">
+    <div class="col-lg-8 col-xs-4">
+      <!-- Apply any bg-* class to to the info-box to color it -->
+      <div class="info-box bg-white">
+          <span class="info-box-icon"><i class="fa fa-comment"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Current Experience</span>
+          <a href="{% if experiencelist.first %}{% url 'dashExperience' experiencelist.first.id entity.id %}{% endif %}"><h3>{{ experiencelist.first.name }}</h3></a>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+       <!-- /.info-box -->
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-4 col-xs-8">
+      <!-- Apply any bg-* class to to the info-box to color it -->
+      <div class="info-box bg-gray">
+        <span class="info-box-icon"><i class="fa fa-hourglass"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Time Step</span>
+        <span class="info-box-number">{{entity.current_t}}</span>
+        <!-- The progress section is optional -->
+        <div class="progress">
+          <div class="progress-bar" style="width: 0%"></div>
+        </div>
+        <span class="progress-description">
+          0% - {{entity.current_t}}/{{sentcount}}
+        </span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+     <!-- /.info-box -->
+    </div>
+    <!-- ./col -->
+  </div>
+  <!-- /.row -->
+  <!-- Main row -->
+  <div class="row">
+    <!-- Left col -->
+    <section class="col-lg-6">
+        <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="fa fa-user-circle-o"></i> Current Emotional State</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <canvas id="radarChart1" style="position: relative; height: 400px;"></canvas>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </section>
+    <!-- /.Left col -->
+    <!-- right col (We are only adding the ID to make the widgets sortable)-->
+    <section class="col-lg-6">
+
+
+        <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="fa fa-user-circle-o"></i> Training Graph</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <canvas id="trainChart1" style="position: relative; height: 300px;"></canvas>
+            </div>
+            <!-- /.box-body -->
+        </div>
+      <!-- /.box -->
+
+
+    </section>
+    <!-- right col -->
+  </div>
+  <!-- /.row (main row) -->
+  <div class='row'>
+      <div class="col-lg-12">
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Experiences</h3>
+              <div class="box-tools pull-right">
+                <!-- Buttons, labels, and many other things can be placed here! -->
+                <!-- Here is a label for example -->
+                <span class="label label-default">{{ experiencelist.count }}</span>
+                <a href="{% url 'addExperience' entity.id %}"><button class="btn btn-default btn-box-tool">+</button></a>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin">
+                  <thead>
+                    <tr>
+                      <th>Exp ID</th>
+                      <th>Name</th>
+                      <th>Sentiment Score</th>
+                      <th>Sentiment Magnitude</th>
+                      <th>Time Created</th>
+                      <th>Processed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for exp in experiencelist.all %}
+                    <tr>
+                      <td><a href="{% url 'dashExperience' entity.id exp.id %}">{{exp.id}}</a></td>
+                      <td>{{exp.name}}</td>
+                      <td>{{exp.sent_score}}</td>
+                      <td>{{exp.sent_mag}}</td>
+                      <td>{{exp.create_t}}</td>
+                      <td>NOT IMPLEMENTED</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+  
+  
+        </div>
+  </div>
+
+</section>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'SRP/Chart.bundle.min.js' %}"></script>
+<script>
+  // ChartJS
+// Radar Chart
+var radarChartCanvas = document.getElementById("radarChart1");
+    // This will get the first returned node in the jQuery collection.
+	var radarChartData = {
+      labels  : ['Happy', 'Surprise', 'Love', 'Enthusiasm', 'Neutral', 'Empty', 'Bored', 'Worry', 'Anger', 'Sadness'],
+      datasets: [
+        {
+          label               : 'Entity',
+          backgroundColor     : 'rgba(0, 214, 222, 0.3)',
+          borderColor         : 'rgba(0, 214, 222, 1)',
+          pointBackgroundColor : 'rgba(0, 214, 222, 1)',
+          pointBorderColor    : '#c1c7d1',
+          pointHoverBackgroundColor  : '#fff',
+          pointHoverBorderColor : 'rgba(220,220,220,1)',
+          data                : [{{entity.emo_happy}}, {{entity.emo_suprised}}, {{entity.emo_love}}, {{entity.emo_enthusiasm}}, {{entity.emo_neutral}}, {{entity.emo_empty}}, {{entity.emo_bored}}, {{entity.emo_worry}}, {{entity.emo_anger}}, {{entity.emo_sadness}}]
+        } 
+      ]
+    };
+	var radarChartOptions = {
+      //Boolean - If we should show the scale at all
+      showScale               : false,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines      : false,
+      //String - Colour of the grid lines
+      scaleGridLineColor      : 'rgba(0,0,0,.05)',
+      //Number - Width of the grid lines
+      scaleGridLineWidth      : 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines  : true,
+      //Boolean - Whether the line is curved between points
+      bezierCurve             : true,
+      //Number - Tension of the bezier curve between points
+      bezierCurveTension      : 0.3,
+      //Boolean - Whether to show a dot for each point
+      pointDot                : false,
+      //Number - Radius of each point dot in pixels
+      pointDotRadius          : 4,
+      //Number - Pixel width of point dot stroke
+      pointDotStrokeWidth     : 1,
+      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+      pointHitDetectionRadius : 20,
+      //Boolean - Whether to show a stroke for datasets
+      datasetStroke           : true,
+      //Number - Pixel width of dataset stroke
+      datasetStrokeWidth      : 2,
+      //Boolean - Whether to fill the dataset with a color
+      datasetFill             : true,
+      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio     : true,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive              : true
+    };
+
+// Training Data Line Chart
+var trainLineChartCanvas = document.getElementById("trainChart1");
+var trainLineChartData = {
+  labels: ["10:11AM", "10:12AM", "10:13AM", "10:14AM", "10:15AM", "10:16AM"],
+  datasets: [{
+    label: "Training",
+    data: [30,31,34,40,44,47],
+    backgroundColor     : 'rgba(32, 158, 1, 0.5)',
+    borderColor         : 'rgba(32, 158, 1, 1)',
+    pointBackgroundColor : 'rgba(32, 158, 1, 1)',
+    pointBorderColor    : '#c1c7d1',
+    pointHoverBackgroundColor  : '#fff',
+    pointHoverBorderColor : 'rgba(220,220,220,1)'
+  },
+  {
+    label: "Testing",
+    data: [55,57,61,67,70,77],
+    backgroundColor     : 'rgba(135, 217, 255, 0.5)',
+    borderColor         : 'rgba(135, 217, 255, 1)',
+    pointBackgroundColor : 'rgba(135, 217, 255, 1)',
+    pointBorderColor    : '#c1c7d1',
+    pointHoverBackgroundColor  : '#fff',
+    pointHoverBorderColor : 'rgba(220,220,220,1)'
+  }]
+};
+var trainLineChartOptions = {
+  scales: {
+    yAxes: [{
+      ticks:{
+        beginAtZero : "True",
+        max : 100
+      }
+    }]
+  }
+};
+window.onload = function(){
+  window.trainChart1 = new Chart(trainLineChartCanvas, {type:"line", data:trainLineChartData, options:trainLineChartOptions});
+  window.radarChart1 = new Chart(radarChartCanvas, {type:"radar", data:radarChartData, options:radarChartOptions});
+};
+</script>
+<!-- jQuery 3 -->
+<script src="{% static 'SRP/jquery.min.js' %}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="{% static 'SRP/bootstrap.min.js' %}"></script>
+<!-- FastClick -->
+<script src="{% static 'SRP/fastclick.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'SRP/adminlte.min.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'SRP/demo.js' %}"></script>
+{% endblock %}

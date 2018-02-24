@@ -1,0 +1,89 @@
+{% extends "adminlte/base.html" %}
+
+{% block title %}Max SRP{% endblock %}
+
+{% block body_class %}skin-black-light layout-boxed{% endblock %}
+
+{% block nav_header %}
+  {% include 'adminlte/lib/_main_header.html' %}
+    {% include 'adminlte/lib/_main_sidebar.html' with entitylist=entitylist %}
+{% endblock %}
+
+{% block content_header %}
+  <section class="content-header">
+      <h1>
+        Edit {{entity.name}}
+      </h1>
+      {% block breadcrumbs %}{% endblock %}
+    </section>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+      <!-- general form elements -->
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Edit</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form">
+          <div class="box-body">
+            <h4>Identity</h4>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" class="form-control" value="{{entity.name}}">
+            </div>
+            <h4>Emotions</h4>
+            <div class="row">
+            <div class="col-xs-2">
+              <div class="form-group">
+              <label for="anger">Inital Anger</label>
+              <input type="text" id="anger" class="form-control" placeholder="1">
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="form-group">
+              <label for="fear">Inital Fear</label>
+              <input type="text" id="fear" class="form-control" placeholder="1">
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="form-group">
+              <label for="happy">Inital Happy</label>
+              <input type="text" id="happy" class="form-control" placeholder="1">
+              </div>
+            </div>
+            <div class="col-xs-2">
+               <div class="form-group">
+              <label for="sad">Inital Sadness</label>
+              <input type="text" id="sad" class="form-control" placeholder="1">
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="form-group">
+              <label for="suprise">Inital Suprise</label>
+              <input type="text" id="suprise" class="form-control" placeholder="1">
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- /.box-body -->
+
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+      <!-- /.box -->
+
+
+    </div>
+    <!--/.col (left) -->
+  </div>
+  <!-- /.row -->
+</section>
+{% endblock %}
