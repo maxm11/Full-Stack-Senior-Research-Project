@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'SRP.apps.SrpConfig',
     'django_adminlte',
     'django_adminlte_theme',
-    "django_rq",
+    'django_celery_results',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -125,3 +125,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Celery Settings
+# Dependancy : Rabbit MQ, Celery, django_celery_results
+
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_RESULT_BACKEND = 'django-db'
