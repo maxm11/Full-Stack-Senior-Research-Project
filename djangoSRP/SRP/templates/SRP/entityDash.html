@@ -109,7 +109,6 @@
               <div class="box-tools pull-right">
                 <!-- Buttons, labels, and many other things can be placed here! -->
                 <!-- Here is a label for example -->
-                <span class="label label-default">{{ experiencelist.count }}</span>
                 <a href="{% url 'addExperience' entity.id %}"><button class="btn btn-default btn-box-tool">+</button></a>
               </div>
               <!-- /.box-tools -->
@@ -213,43 +212,7 @@ var radarChartCanvas = document.getElementById("radarChart1");
       responsive              : true
     };
 
-// Training Data Line Chart
-var trainLineChartCanvas = document.getElementById("trainChart1");
-var trainLineChartData = {
-  labels: ["10:11AM", "10:12AM", "10:13AM", "10:14AM", "10:15AM", "10:16AM"],
-  datasets: [{
-    label: "Training",
-    data: [30,31,34,40,44,47],
-    backgroundColor     : 'rgba(32, 158, 1, 0.5)',
-    borderColor         : 'rgba(32, 158, 1, 1)',
-    pointBackgroundColor : 'rgba(32, 158, 1, 1)',
-    pointBorderColor    : '#c1c7d1',
-    pointHoverBackgroundColor  : '#fff',
-    pointHoverBorderColor : 'rgba(220,220,220,1)'
-  },
-  {
-    label: "Testing",
-    data: [55,57,61,67,70,77],
-    backgroundColor     : 'rgba(135, 217, 255, 0.5)',
-    borderColor         : 'rgba(135, 217, 255, 1)',
-    pointBackgroundColor : 'rgba(135, 217, 255, 1)',
-    pointBorderColor    : '#c1c7d1',
-    pointHoverBackgroundColor  : '#fff',
-    pointHoverBorderColor : 'rgba(220,220,220,1)'
-  }]
-};
-var trainLineChartOptions = {
-  scales: {
-    yAxes: [{
-      ticks:{
-        beginAtZero : "True",
-        max : 100
-      }
-    }]
-  }
-};
 window.onload = function(){
-  window.trainChart1 = new Chart(trainLineChartCanvas, {type:"line", data:trainLineChartData, options:trainLineChartOptions});
   window.radarChart1 = new Chart(radarChartCanvas, {type:"radar", data:radarChartData, options:radarChartOptions});
 };
 </script>
