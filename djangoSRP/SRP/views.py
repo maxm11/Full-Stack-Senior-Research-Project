@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404  
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Entity, Experience, Sentence
+from .models import Entity, Experience, Sentence, Noun
+from .tasks import experience_intake, noun_display
 
 # Create your views here.
 def gen_nbar_context():
@@ -46,7 +47,7 @@ def add(request, entity_id):
     try:
         name = request.POST['prod_name']
         content = request.POST['prod_content']
-    
+        time = 0
     except KeyError:
         entity = get_object_or_404(Entity, pk=entity_id)
         context = gen_nbar_context()
@@ -54,9 +55,10 @@ def add(request, entity_id):
         return render(request, 'SRP/createExperience.html', context)
     else:
         entity = get_object_or_404(Entity, pk=entity_id)
-        e = Experience(name=name, content=content, entity_id=entity.id)
+        e = Experience(name=name, content=content, entity_id=entity.id, create_t=time)
         e.save()
-        return HttpResponseRedirect(reverse('dashExperience', args=(e.id, entity.id)))
+        experience_intake.delay(e.id)
+        return HttpResponseRedirect(reverse('dashExperience', args=(entity.id, e.id)))
 
 def dashEntity(request, entity_id):
     entity = get_object_or_404(Entity, pk=entity_id)
@@ -64,14 +66,32 @@ def dashEntity(request, entity_id):
     sentcount = Sentence.objects.filter(entity_id=entity.id).count()
     context = gen_nbar_context()
     context.update(entity=entity, experiencelist=experiencelist, sentcount=sentcount)
-    return render(request, 'SRP/entityDash.html', context)
+    return render(request, 'SRP/entityDashPre.html', context)
+
+def noun_search(request, entity_id):
+    # Implementation Alert
+    # Implement Time
+    search = request.POST['search']
+    entity = get_object_or_404(Entity, pk=entity_id)
+    experiencelist = Experience.objects.filter(entity_id=entity.id).order_by('pk')[:5]
+    sentcount = Sentence.objects.filter(entity_id=entity.id).count()
+    context = gen_nbar_context()
+    context.update(entity=entity, experiencelist=experiencelist, sentcount=sentcount)
+    dic = noun_display.apply_async((search, entity.id))
+    res = dic.get()
+    context.update(res)
+    try:
+        context['search_error']
+        return render(request, 'SRP/entityDashPre.html', context)
+    except KeyError:
+        return render(request, 'SRP/entityDashPost.html', context)
 
 def dashExperience(request, experience_id, entity_id):
     entity = get_object_or_404(Entity, pk=entity_id)
     experience = get_object_or_404(Experience, pk=experience_id, entity_id=entity_id)
+    sentlist = Sentence.objects.filter(entity_id=entity.id, experience_id=experience.id).order_by('pk')[:5]
     context = gen_nbar_context()
-    context.update(entity=entity)
-    context.update(experience=experience)
+    context.update(entity=entity, experience=experience, sentlist=sentlist)
     return render(request, 'SRP/experienceDash.html', context)
 
 def editEntity(request, entity_id):

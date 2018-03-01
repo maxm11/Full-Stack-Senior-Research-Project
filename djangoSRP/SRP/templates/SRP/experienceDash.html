@@ -68,16 +68,33 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">Sentences</h3>
-            <div class="box-tools pull-right">
-              <!-- Buttons, labels, and many other things can be placed here! -->
-              <!-- Here is a label for example -->
-              <span class="label label-default">0</span>
-            </div>
-            <!-- /.box-tools -->
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            
+            <div class="table-responsive">
+                <table class="table no-margin">
+                    <thead>
+                    <tr>
+                        <th>Content</th>
+                        <th>Sentiment Score</th>
+                        <th>Sentiment Magnitude</th>
+                        <th>Time Created</th>
+                        <th>Processed</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for sent in sentlist.all %}
+                    <tr>
+                        <td>{{sent.content}}</td>
+                        <td>{{sent.sent_score}}</td>
+                        <td>{{sent.sent_mag}}</td>
+                        <td>{{sent.create_t}}</td>
+                        <td>NOT IMPLEMENTED</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
           </div>
           <!-- /.box-body -->
         </div>
@@ -94,8 +111,8 @@
 {% block javascript %}
 <script src="{% static 'SRP/Chart.bundle.min.js' %}"></script>
 <script>
-var currentTextScore = 1
-var currentTextMag = 0.6
+var currentTextScore = {{experience.sent_score}}
+var currentTextMag = {{experience.sent_mag}}
 
 function colorGrad (value) {
     if(value<0){

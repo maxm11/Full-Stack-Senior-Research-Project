@@ -9,7 +9,7 @@
 
 {% block nav_header %}
   {% include 'adminlte/lib/_main_header.html' %}
-    {% include 'adminlte/lib/_main_sidebar.html' with entitylist=entitylist %}
+  {% include 'adminlte/lib/_main_sidebar.html' with entitylist=entitylist %}
 {% endblock %}
 
 {% block content_header %}
@@ -83,19 +83,8 @@
     <!-- right col (We are only adding the ID to make the widgets sortable)-->
     <section class="col-lg-6">
 
-
-        <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-user-circle-o"></i> Training Graph</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <canvas id="trainChart1" style="position: relative; height: 300px;"></canvas>
-            </div>
-            <!-- /.box-body -->
-        </div>
-      <!-- /.box -->
-
+      {% block noun %}
+      {% endblock %}
 
     </section>
     <!-- right col -->
@@ -119,7 +108,6 @@
                 <table class="table no-margin">
                   <thead>
                     <tr>
-                      <th>Exp ID</th>
                       <th>Name</th>
                       <th>Sentiment Score</th>
                       <th>Sentiment Magnitude</th>
@@ -130,8 +118,7 @@
                   <tbody>
                     {% for exp in experiencelist.all %}
                     <tr>
-                      <td><a href="{% url 'dashExperience' entity.id exp.id %}">{{exp.id}}</a></td>
-                      <td>{{exp.name}}</td>
+                      <td><a href="{% url 'dashExperience' entity.id exp.id %}">{{exp.name}}</a></td>
                       <td>{{exp.sent_score}}</td>
                       <td>{{exp.sent_mag}}</td>
                       <td>{{exp.create_t}}</td>
@@ -152,7 +139,8 @@
 
 </section>
 {% endblock %}
-
+{% block jssub %}
+{% endblock %}
 {% block javascript %}
 <script src="{% static 'SRP/Chart.bundle.min.js' %}"></script>
 <script>

@@ -8,7 +8,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangoSRP.settings')
 # Setup django project
 django.setup()
 
-app = Celery('djangoSRP', include=['djangoSRP.tasks'])
+app = Celery('djangoSRP')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
