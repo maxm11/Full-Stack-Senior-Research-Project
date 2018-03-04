@@ -1,0 +1,11 @@
+# [START runtime]
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT djangoSRP.wsgi
+
+beta_settings:
+    cloud_sql_instances: srpconcai-1510598935002:us-west1:srp1
+
+runtime_config:
+  python_version: 3
+# [END runtime]

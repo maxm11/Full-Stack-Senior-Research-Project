@@ -20,13 +20,13 @@ from SRP import views
 
 app_name = 'srp'
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('entity/new/', views.createEntity, name="createEntity"),
-    path('entity/new/create/', views.create, name='create'),
-    path('entity/<int:entity_id>/', views.dashEntity, name='dashEntity'),
-    path('entity/<int:entity_id>/search/noun/', views.noun_search, name='noun_search'),
-    path('entity/<int:entity_id>/edit/', views.editEntity, name='editEntity'),
-    path('entity/<int:entity_id>/experience/add/', views.addExperience, name='addExperience'),
-    path('entity/<int:entity_id>/add/', views.add, name='eadd'),
-    path('entity/<int:entity_id>/experience/<int:experience_id>/', views.dashExperience, name='dashExperience')
+    path(r'^admin/', admin.site.urls),
+    path(r'^', views.createEntity, name="createEntity"),
+    path(r'^entity/new/create/', views.create, name='create'),
+    path(r'^entity/<int:entity_id>/', views.dashEntity, name='dashEntity'),
+    path(r'^entity/<int:entity_id>/search/noun/', views.noun_search, name='noun_search'),
+    path(r'^entity/<int:entity_id>/edit/', views.editEntity, name='editEntity'),
+    path(r'^entity/<int:entity_id>/experience/add/', views.addExperience, name='addExperience'),
+    path(r'^entity/<int:entity_id>/add/', views.add, name='eadd'),
+    path(r'^entity/<int:entity_id>/experience/<int:experience_id>/', views.dashExperience, name='dashExperience')
 ]

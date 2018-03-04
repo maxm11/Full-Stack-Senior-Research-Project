@@ -25,7 +25,7 @@ SECRET_KEY = 'llt1ak$mg+%r)!r861in$fvpu-gp-248c6+$=w+k1our@t9y4)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,10 +83,14 @@ DATABASES = {
         'NAME': 'srp',
         'USER': 'postgres',
         'PASSWORD': 'JsHHcB4IvKPI9lwI',
-        'HOST': '104.198.13.200'
+        'PORT': '5432'
     }
 }
-
+DATABASES['default']['HOST'] = '/cloudsql/srpconcai-1510598935002:us-west1:srp1'
+if os.getenv('GAE_INSTANCE'):
+    pass
+else:
+    DATABASES['default']['HOST'] = '127.0.0.1'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -124,7 +128,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'https://storage.googleapis.com/srp-1/static/'
+
+STATIC_ROOT = 'static.local/'
 
 # Celery Settings
 # Dependancy : Rabbit MQ, Celery, django_celery_results
