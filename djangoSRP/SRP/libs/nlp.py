@@ -5,11 +5,12 @@ from google.oauth2 import service_account
 from google.protobuf.json_format import MessageToJson
 from json import loads
 from sys import maxunicode
-from pathlib import WindowsPath
+import os
 import six
 
 def text_sentiment(text):
-        creds_path = WindowsPath('c:\\Users\\maxmr\\Documents\\SRP\\djangoSRP\\SRP\\libs\\creds.json')
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        creds_path = dir_path + '/creds.json'
         credentials = service_account.Credentials.from_service_account_file(creds_path)
         """Detects entity sentiment in the provided text."""
 

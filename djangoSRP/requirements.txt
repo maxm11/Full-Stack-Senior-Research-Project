@@ -2,10 +2,11 @@ Django==2.0.2
 wheel==0.30.0
 gunicorn==19.7.1
 psycopg2-binary
+python-memcached==1.54
 django-adminlte2
-celery==4.1
-django-celery-results
 google-api-core
-google-cloud-language
+google-cloud
 googleapis-common-protos
+google-api-python-client
+google-auth-httplib2
 grpcio

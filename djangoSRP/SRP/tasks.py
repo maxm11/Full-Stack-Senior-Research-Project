@@ -2,27 +2,27 @@
 from __future__ import absolute_import, unicode_literals
 from .libs.nlp import text_sentiment
 from .models import Entity, Experience, Sentence, Noun
-from celery import shared_task
 from decimal import Decimal
-
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Sample Tasks
-@shared_task
 def add(x, y):
     return x + y
 
 
-@shared_task
 def div(x, y):
     return x / y
 
 
-@shared_task
 def xsum(numbers):
     return sum(numbers)
 
-@shared_task
-def experience_intake(experience_id):
+@csrf_exempt
+def experience_intake(request):
+    print(request.GET)
+    payload = request.GET['experience_id']
+    experience_id = int(payload)
     experience = Experience.objects.filter(pk=experience_id)[0]
 
     # Take in Experience
@@ -37,12 +37,17 @@ def experience_intake(experience_id):
 
     # Breakdown the sentences and save them to the database
     for sent in sentences:
-        s = Sentence(content=sent['text']['content'], sent_score=sent['sentiment']['score'], sent_mag=sent['sentiment']['magnitude'], experience_id=experience.id, entity_id=experience.entity_id, create_t=0)
+        try:
+            score = sent['sentiment']['score']
+            mag = sent['sentiment']['magnitude']
+        except KeyError:
+            score = 0
+            mag = 0
+        s = Sentence(content=sent['text']['content'], sent_score=score, sent_mag=mag, experience_id=experience.id, entity_id=experience.entity_id, create_t=0)
         s.save()
     
-    return True
+    return HttpResponse(status=200)
 
-@shared_task
 def noun_display(noun, entity_id):
     context = dict()
     nounlist = Noun.objects.filter(entity_id=entity_id, noun=noun)
