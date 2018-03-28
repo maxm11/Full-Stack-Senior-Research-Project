@@ -1,5 +1,4 @@
 Django
 wheel
-gunicorn
 python-memcached
 django-adminlte2
