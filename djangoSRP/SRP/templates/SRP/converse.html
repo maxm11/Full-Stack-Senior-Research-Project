@@ -1,0 +1,212 @@
+<html>
+    <head>
+        <title>Conversation Engine</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/1.0.0/typewriter.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+        <script type="text/javascript">
+            var accessToken = "ce44139879fd473cb696e3f546f331f7";
+            var baseUrl = "https://api.api.ai/v1/";
+            $(document).ready(function() {
+                $("#input").keypress(function(event) {
+                    if (event.which == 13) {
+                        event.preventDefault();
+                        send($("#input").val());
+                    }
+                });
+                startRecognition();
+            });
+            var recognition;
+            function startRecognition() {
+                var isChrome = !!window.chrome;
+                if (isChrome == true){recognition = new webkitSpeechRecognition();}
+                else{recognition = new SpeechRecognition.SpeechRecognition();}
+                recognition.onstart = function(event) {
+                    updateRec();
+                };
+                recognition.onresult = function(event) {
+                    var text = "";
+                    for (var i = event.resultIndex; i < event.results.length; ++i) {
+                        text += event.results[i][0].transcript;
+                    };
+                    console.log(text)
+                    send(text);
+                };
+                recognition.lang = "en-US";
+                $("#animation").animate({opacity : '1'});
+                recognition.start();
+            }
+        
+            function stopRecognition() {
+                if (recognition) {
+                    recognition.stop();
+                    recognition = null;
+                }
+                updateRec();
+                $("#animation").animate({opacity :'0'});
+            }
+            function switchRecognition() {
+                if (recognition) {
+                    stopRecognition();
+                } else {
+                    startRecognition();
+                }
+            }
+            function updateRec() {
+                $("#rec").text(recognition ? "Stop" : "Speak");
+            }
+            function send(text) {
+                $.ajax({
+                    type: "POST",
+                    url: baseUrl + "query?v=20150910",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    headers: {
+                        "Authorization": "Bearer " + accessToken
+                    },
+                    data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing" }),
+                    success: function(data) {
+                        setResponse(data.result.fulfillment.speech);
+                    },
+                    error: function() {
+                        setResponse("Error.");
+                    }
+                });
+                setResponse(" ");
+            }
+            // Create a new utterance for the specified text and add it to
+            // the queue.
+            function speak(text) {
+            // Create a new instance of SpeechSynthesisUtterance.
+                var msg = new SpeechSynthesisUtterance();
+            
+            // Set the text.
+                msg.text = text;
+            
+            // Set the attributes.
+                msg.volume = 1;
+                msg.rate = 1;
+                msg.pitch = 1;
+            
+            // If a voice has been selected, find the voice and set the
+            // utterance instance's voice attribute.
+                msg.voice = speechSynthesis.getVoices()[0];
+            
+            // Queue this utterance.
+                window.speechSynthesis.speak(msg);
+                console.log("After Speak")
+
+                msg.onstart = function(event) {switchRecognition(); console.log("OnStart");}
+                //msg.onend = function(event) {startRecognition(); console.log('OnEnd');}
+                //msg.onpause = function(event) {startRecognition(); console.log('OnPause');}
+                //msg.onresume = function(event) {stopRecognition(); console.log("OnResume");}
+            }
+            function setResponse(val) {
+                var app = document.getElementById('response');
+                console.log(val)
+                
+                speak(val)  
+                var typewriter = new Typewriter(app, {
+                    loop: false,
+                    animateCursor : true,
+                    typingSpeed : 1,
+                    cursor: " "
+                });
+                typewriter.deleteAll();
+                typewriter.typeString(val);
+                typewriter.start();
+            }
+            
+ 
+        </script>
+        
+        <style type="text/css">
+            #response { width: 100%; height: 65.5px; font-family: 'Open Sans', sans-serif; font-size: 48px;}
+            html,body{
+                    margin: 0 auto;
+                    text-align: center;
+                    margin-top: 20px; margin-bottom: 20px;
+                    height: 100%;
+                    width: 100%;
+                    overflow: hidden;
+                    background: white;
+                }
+                div[class*=wrapper] {
+                	height: 100%;
+                	width: 100%;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;  
+                    }
+                div[class*=loader] {
+                    position: sticky;
+                    width: 200px;
+                    height: 200px;
+                }
+                
+                .circle-loader {
+                  position: relative;
+                }
+                
+                .circle {
+                    border-radius: 50% 50% 50% 50%;
+                    position: absolute;
+                    border-top: 2px solid rgb(0, 0, 0);
+                    border-bottom: 2px solid transparent;
+                    border-left:  2px solid rgb(0, 0, 0);
+                    border-right: 2px solid transparent;
+                    animation: animate 2s infinite;	
+                }
+                
+                .circle_one {
+                    left: 75px;
+                    top: 75px;
+                    width: 50px;
+                    height: 50px;
+                }
+                                            
+                .circle_two {
+                    left: 65px;
+                    top: 65px;
+                    width: 70px;
+                    height: 70px;
+                  animation-delay: 0.2s;
+                }
+                        
+                .circle_three {
+                    left: 55px;
+                    top: 55px;
+                    width: 90px;
+                    height: 90px;
+                  animation-delay: 0.4s;
+                }
+                
+                .circle_four {
+                    left: 45px;
+                    top: 45px;
+                    width: 110px;
+                    height: 110px;
+                  animation-delay: 0.6s;
+                }	
+                
+                @keyframes animate {
+                  50% { transform: rotate(360deg) scale(0.8); }	
+                }                
+        </style>
+    </head>
+    <body>
+        <div id="response"></div>
+        <div id="animation">
+            <div class="second-wrapper">
+                <div class="circle-loader">
+                    <div class="circle circle_four"></div>
+                    <div class="circle circle_three"></div>
+                    <div class="circle circle_two"></div>
+                    <div class="circle circle_one"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>

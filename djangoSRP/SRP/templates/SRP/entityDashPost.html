@@ -1,0 +1,157 @@
+{% extends 'SRP/entityDashBase.html' %}
+{% load static %}
+{% block noun %}
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title"><i class="fa fa-user-circle-o"></i> {{noun_name}}</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <canvas id="radarChart2" style="position: relative; height: 400px;"></canvas>
+        <div class="table-responsive">
+            <table class="table no-margin">
+            <tr>
+                <td><b>Avg. Score</b></td>
+                <td>{{noun_score}}</td>
+            </tr>
+            <tr>
+                <td><b>Avg. Magnitude</b></td>
+                <td>{{noun_mag}}</td>
+            </tr>
+            </table>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>
+<!-- /.box -->
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'SRP/Chart.bundle.min.js' %}"></script>
+<script>
+  // ChartJS
+// Radar Chart
+var radarChartCanvas = document.getElementById("radarChart1");
+    // This will get the first returned node in the jQuery collection.
+	var radarChartData = {
+      labels  : ['Happy', 'Surprise', 'Love', 'Enthusiasm', 'Neutral', 'Empty', 'Bored', 'Worry', 'Anger', 'Sadness'],
+      datasets: [
+        {
+          label               : 'Entity',
+          backgroundColor     : 'rgba(0, 214, 222, 0.3)',
+          borderColor         : 'rgba(0, 214, 222, 1)',
+          pointBackgroundColor : 'rgba(0, 214, 222, 1)',
+          pointBorderColor    : '#c1c7d1',
+          pointHoverBackgroundColor  : '#fff',
+          pointHoverBorderColor : 'rgba(220,220,220,1)',
+          data                : [{{entity.emo_happy}}, {{entity.emo_suprised}}, {{entity.emo_love}}, {{entity.emo_enthusiasm}}, {{entity.emo_neutral}}, {{entity.emo_empty}}, {{entity.emo_bored}}, {{entity.emo_worry}}, {{entity.emo_anger}}, {{entity.emo_sadness}}]
+        } 
+      ]
+    };
+	var radarChartOptions = {
+      //Boolean - If we should show the scale at all
+      showScale               : false,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines      : false,
+      //String - Colour of the grid lines
+      scaleGridLineColor      : 'rgba(0,0,0,.05)',
+      //Number - Width of the grid lines
+      scaleGridLineWidth      : 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines  : true,
+      //Boolean - Whether the line is curved between points
+      bezierCurve             : true,
+      //Number - Tension of the bezier curve between points
+      bezierCurveTension      : 0.3,
+      //Boolean - Whether to show a dot for each point
+      pointDot                : false,
+      //Number - Radius of each point dot in pixels
+      pointDotRadius          : 4,
+      //Number - Pixel width of point dot stroke
+      pointDotStrokeWidth     : 1,
+      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+      pointHitDetectionRadius : 20,
+      //Boolean - Whether to show a stroke for datasets
+      datasetStroke           : true,
+      //Number - Pixel width of dataset stroke
+      datasetStrokeWidth      : 2,
+      //Boolean - Whether to fill the dataset with a color
+      datasetFill             : true,
+      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio     : true,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive              : true
+    };
+
+    // Radar Chart
+    var radarChartCanvas2 = document.getElementById("radarChart2");
+        // This will get the first returned node in the jQuery collection.
+        var radarChartData2 = {
+        labels  : ['Happy', 'Surprise', 'Love', 'Enthusiasm', 'Neutral', 'Empty', 'Bored', 'Worry', 'Anger', 'Sadness'],
+        datasets: [
+            {
+            label               : '{{noun_name}}',
+            backgroundColor     : 'rgba(0, 214, 222, 0.3)',
+            borderColor         : 'rgba(0, 214, 222, 1)',
+            pointBackgroundColor : 'rgba(0, 214, 222, 1)',
+            pointBorderColor    : '#c1c7d1',
+            pointHoverBackgroundColor  : '#fff',
+            pointHoverBorderColor : 'rgba(220,220,220,1)',
+            data                : [{{noun_emo_happy}}, {{noun_emo_suprised}}, {{noun_emo_love}}, {{noun_emo_enthusiasm}}, {{noun_emo_neutral}}, {{noun_emo_empty}}, {{noun_emo_bored}}, {{noun_emo_worry}}, {{noun_emo_anger}}, {{noun_emo_sadness}}]
+            } 
+        ]
+        };
+        var radarChartOptions2 = {
+        //Boolean - If we should show the scale at all
+        showScale               : false,
+        //Boolean - Whether grid lines are shown across the chart
+        scaleShowGridLines      : false,
+        //String - Colour of the grid lines
+        scaleGridLineColor      : 'rgba(0,0,0,.05)',
+        //Number - Width of the grid lines
+        scaleGridLineWidth      : 1,
+        //Boolean - Whether to show horizontal lines (except X axis)
+        scaleShowHorizontalLines: true,
+        //Boolean - Whether to show vertical lines (except Y axis)
+        scaleShowVerticalLines  : true,
+        //Boolean - Whether the line is curved between points
+        bezierCurve             : true,
+        //Number - Tension of the bezier curve between points
+        bezierCurveTension      : 0.3,
+        //Boolean - Whether to show a dot for each point
+        pointDot                : false,
+        //Number - Radius of each point dot in pixels
+        pointDotRadius          : 4,
+        //Number - Pixel width of point dot stroke
+        pointDotStrokeWidth     : 1,
+        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+        pointHitDetectionRadius : 20,
+        //Boolean - Whether to show a stroke for datasets
+        datasetStroke           : true,
+        //Number - Pixel width of dataset stroke
+        datasetStrokeWidth      : 2,
+        //Boolean - Whether to fill the dataset with a color
+        datasetFill             : true,
+        //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+        maintainAspectRatio     : true,
+        //Boolean - whether to make the chart responsive to window resizing
+        responsive              : true
+        };
+    
+window.onload = function(){
+  window.radarChart1 = new Chart(radarChartCanvas, {type:"radar", data:radarChartData, options:radarChartOptions});
+  window.radarChart2 = new Chart(radarChartCanvas2, {type:"radar", data:radarChartData2, options:radarChartOptions2});
+};
+</script>
+<!-- jQuery 3 -->
+<script src="{% static 'SRP/jquery.min.js' %}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="{% static 'SRP/bootstrap.min.js' %}"></script>
+<!-- FastClick -->
+<script src="{% static 'SRP/fastclick.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'SRP/adminlte.min.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'SRP/demo.js' %}"></script>
+{% endblock %}

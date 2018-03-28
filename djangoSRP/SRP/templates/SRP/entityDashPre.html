@@ -1,0 +1,47 @@
+{% extends 'SRP/entityDashBase.html' %}
+{% block noun %}
+{% if search_error %}
+<div class="box box-danger">
+{% else %}
+<div class="box">
+{% endif %}
+    
+    <div class="box-header with-border">
+        <h3 class="box-title"><i class="fa fa-user-circle-o"></i> Noun Look-Up</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        {% if search_error %}
+        {{search_error}}
+        {% endif %}
+        <form role="form" action="{% url 'noun_search' entity.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="search" class="form-control" placeholder="Search">
+        </div>
+        <input type="submit" />
+        </form>
+    </div>
+    <!-- /.box-body -->
+</div>
+<!-- /.box -->
+{% endblock %}
+{% block jssub %}
+<script type="text/javascript">
+    // Using jQuery.
+    
+    $(function() {
+        $('form').each(function() {
+            $(this).find('input').keypress(function(e) {
+                // Enter pressed?
+                if(e.which == 10 || e.which == 13) {
+                    this.form.submit();
+                }
+            });
+    
+            $(this).find('input[type=submit]').hide();
+        });
+    });
+    </script>
+{% endblock %}
