@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 #from .libs.nlp import text_sentiment
 from .models import Entity, Experience, Sentence, Noun
 from decimal import Decimal
-from libs.nlp import tone
+from .libs.nlp import tone
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
