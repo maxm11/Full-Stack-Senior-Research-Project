@@ -25,7 +25,7 @@ urlpatterns = [
     path('', auth_views.LoginView.as_view(template_name='SRP/login.html'), name="login"),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='SRP/login.html'), name="login"),
     path('login/', auth_views.LoginView.as_view(template_name='SRP/login.html'), name="login"),
-    path('logout/', auth_views.LogoutView.as_view(next_page=reverse('login'))),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/')),
     path('entity/new/create/', views.createEntity, name='createEntity'),
     path('entity/new/create/create/', views.create, name='create'),
     path('entity/<int:entity_id>/', views.dashEntity, name='dashEntity'),
