@@ -3,4 +3,5 @@ django-adminlte2
 gunicorn
 psycopg2-binary
 gevent
+wheel
 django-background-tasks
