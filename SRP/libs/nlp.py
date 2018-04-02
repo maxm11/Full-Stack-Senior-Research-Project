@@ -1,4 +1,4 @@
-from watson-developer-cloud import ToneAnalyzerV3
+from watson_developer_cloud import ToneAnalyzerV3
 
 
 def tone(text):
@@ -8,6 +8,6 @@ def tone(text):
     password='t7xG8mDnwZ8l'
     )
 
-    tone = tone_analyzer(text, content_type='text/plain')
+    tone = tone_analyzer.tone(text, content_type='text/plain')
 
-    print(tone)
+    return tone

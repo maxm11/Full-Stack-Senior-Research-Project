@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 #from .libs.nlp import text_sentiment
 from .models import Entity, Experience, Sentence, Noun
 from decimal import Decimal
+from libs.nlp import tone
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -18,11 +19,8 @@ def div(x, y):
 def xsum(numbers):
     return sum(numbers)
 
-@csrf_exempt
-def experience_intake(request):
-    print(request.GET)
-    payload = request.GET['experience_id']
-    experience_id = int(payload)
+def experience_intake(exp_id):
+    experience_id = int(exp_id)
     experience = Experience.objects.filter(pk=experience_id)[0]
 
     # Take in Experience
@@ -30,23 +28,40 @@ def experience_intake(request):
 
     # Run Text Sentiment
     # Output : sent_score, sent_mag, sentences[list]
-    #experience.sent_score, experience.sent_mag, sentences = text_sentiment(experience_content)
+    analysis = tone(experience_content)
+
+    # Document Sentiment
+    print("doc sent")
+    for t in analysis['document_tone']:
+        tid = t['tone_id']
+        score = t['score']
+        print("tid")
+        print('score')
+
 
     # Save Experience
     #experience.save()
 
     # Breakdown the sentences and save them to the database
-    '''for sent in sentences:
-        try:
-            score = sent['sentiment']['score']
-            mag = sent['sentiment']['magnitude']
-        except KeyError:
-            score = 0
-            mag = 0
-        s = Sentence(content=sent['text']['content'], sent_score=score, sent_mag=mag, experience_id=experience.id, entity_id=experience.entity_id, create_t=0)
-        s.save()
-    '''
-    return HttpResponse(status=200)
+    try:
+        print("sent sent")
+        for sent in analysis['sentences_tone']:
+            content = sent['text']
+            print(content)
+            for t in sent['tones']:
+                tid = t['tone_id']
+                score = t['score']
+                print(tid)
+                print(score)
+    except KeyError:
+        content = experience_content
+        for t in analysis['document_tone']:
+            tid = t['tone_id']
+            score = t['score']
+            print(tid)
+            print(score)
+        #s = Sentence(content=sent['text']['content'], sent_score=score, sent_mag=mag, experience_id=experience.id, entity_id=experience.entity_id, create_t=0)
+        #s.save()
 
 def noun_display(noun, entity_id):
     context = dict()
