@@ -320,7 +320,7 @@ input::placeholder {
     var login_password = $("login_password").val
     data = "username=" + login_username + "&password=" + login_password
     var status = ""
-    $(document).post("{% url 'loginHandler' %}", data, function(status){status=status})
+    $.post("{% url 'loginHandler' %}", data, function(status){status=status})
     if (status == "success"){
       window.location.replace("{% url 'createEntity' %}");
     }
