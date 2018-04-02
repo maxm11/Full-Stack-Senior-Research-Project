@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class SrpConfig(AppConfig):
-    name = 'app'
+    name = 'SRP'
