@@ -130,26 +130,3 @@ def editEntity(request, entity_id):
     context = gen_nbar_context()
     context.update(entity=entity)
     return render(request, 'SRP/editEntity.html', context)
-
-def loginPage(request):
-    return render(request, 'SRP/login.html')
-
-def loginHandler(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    try:
-        nextPageURI = request.GET['next']
-    except KeyError:
-        nextPageURI = None
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        if nextPageURI is not None:
-            return HttpResponseRedirect(nextPageURI)
-        return HttpResponse(200)
-    else:
-        return HttpResponse(400)
-
-def logoutHandler(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('login'))
