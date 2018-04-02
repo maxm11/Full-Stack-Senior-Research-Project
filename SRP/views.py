@@ -3,7 +3,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Entity, Experience, Sentence, Noun
 from .tasks import experience_intake, noun_display
-from .create_task import create_task
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
