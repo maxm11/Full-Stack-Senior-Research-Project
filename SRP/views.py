@@ -24,22 +24,19 @@ def createEntity(request):
 def create(request):
     try:
         name = request.POST['name']
-        emo_happy = request.POST['happy']
-        emo_sad = request.POST['sad']
-        emo_suprised = request.POST['suprise']
-        emo_angry = request.POST['angry']
-        emo_bored = request.POST['bored']
-        emo_empty = request.POST['empty']
-        emo_enthusiasm = request.POST['enthusiasm']
-        emo_neutral = request.POST['neutral']
-        emo_worry = request.POST['worry']
-        emo_love = request.POST['love']
+        joy = request.POST['joy']
+        sadness = request.POST['sadness']
+        fear  = request.POST['fear']
+        anger = request.POST['anger']
+        analytical = request.POST['analytical']
+        confident = request.POST['confident']
+        tentative = request.POST['tentative']
     except KeyError:
         context = gen_nbar_context()
         context.update(error_message='Please fill all fields.')
         return render(request, 'SRP/createEntity.html', context)
     else:
-        e = Entity(name=name, emo_angry=emo_angry, emo_bored=emo_bored, emo_empty=emo_empty, emo_enthusiasm=emo_enthusiasm, emo_happy=emo_happy, emo_love=emo_love, emo_neutral=emo_neutral, emo_sad=emo_sad, emo_suprised=emo_suprised, emo_worry=emo_worry)
+        e = Entity(name=name,joy=joy,sadness=sadness,fear=fear,anger=anger,analytical=analytical,confident=confident,tentative=tentative)
         e.save()
         return HttpResponseRedirect(reverse('dashEntity', args=(e.id,)))
 
@@ -66,7 +63,7 @@ def add(request, entity_id):
         entity = get_object_or_404(Entity, pk=entity_id)
         e = Experience(name=name, content=content, entity_id=entity.id, create_t=time)
         e.save()
-        create_task('srpconcai-1510598935002', 'task1', 'us-central1', 'task/expintake', 'experience_id={}'.format(e.id), in_seconds=3)
+        #create_task('srpconcai-1510598935002', 'task1', 'us-central1', 'task/expintake', 'experience_id={}'.format(e.id), in_seconds=3)
         return HttpResponseRedirect(reverse('dashExperience', args=(entity.id, e.id)))
 
 @login_required
