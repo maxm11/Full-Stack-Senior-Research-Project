@@ -1,4 +1,4 @@
-from .models import Entity, Experience, Noun
+from SRP.models import Entity, Experience, Noun
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 
