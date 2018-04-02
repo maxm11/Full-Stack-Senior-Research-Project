@@ -5,3 +5,4 @@ psycopg2-binary
 gevent
 wheel
 django-background-tasks
+watson-developer-cloud==1.0.1
