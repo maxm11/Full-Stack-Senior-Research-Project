@@ -150,7 +150,7 @@
 var radarChartCanvas = document.getElementById("radarChart1");
     // This will get the first returned node in the jQuery collection.
 	var radarChartData = {
-      labels  : ['Happy', 'Surprise', 'Love', 'Enthusiasm', 'Neutral', 'Empty', 'Bored', 'Worry', 'Anger', 'Sadness'],
+      labels  : ['Joy','Sadness','Fear ','Anger','Analytical','Confident','Tentative'],
       datasets: [
         {
           label               : 'Entity',
@@ -160,7 +160,7 @@ var radarChartCanvas = document.getElementById("radarChart1");
           pointBorderColor    : '#c1c7d1',
           pointHoverBackgroundColor  : '#fff',
           pointHoverBorderColor : 'rgba(220,220,220,1)',
-          data                : [{{entity.emo_happy}}, {{entity.emo_suprised}}, {{entity.emo_love}}, {{entity.emo_enthusiasm}}, {{entity.emo_neutral}}, {{entity.emo_empty}}, {{entity.emo_bored}}, {{entity.emo_worry}}, {{entity.emo_anger}}, {{entity.emo_sadness}}]
+          data                : [{{entity.joy}}, {{entity.sadness}}, {{entity.fear}}, {{entity.anger}}, {{entity.analytical}}, {{entity.confident}}, {{entity.tentative}}]
         } 
       ]
     };
