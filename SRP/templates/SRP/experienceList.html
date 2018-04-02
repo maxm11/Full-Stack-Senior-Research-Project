@@ -30,28 +30,38 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="table-responsive">
-                <table class="table no-margin">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Sentiment Score</th>
-                      <th>Sentiment Magnitude</th>
-                      <th>Time Created</th>
-                      <th>Processed</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for exp in experiencelist.all %}
-                    <tr>
-                      <td><a href="{% url 'dashExperience' entity.id exp.id %}">{{exp.name}}</a></td>
-                      <td>{{exp.sent_score}}</td>
-                      <td>{{exp.sent_mag}}</td>
-                      <td>{{exp.create_t}}</td>
-                      <td>NOT IMPLEMENTED</td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
+                  <table class="table no-margin">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Joy</th>
+                          <th>Sadness</th>
+                          <th>Fear</th>
+                          <th>Anger</th>
+                          <th>Analytical</th>
+                          <th>Confident</th>
+                          <th>Tentative</th>
+                          <th>Time Created</th>
+                          <th>Processed</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for exp in experiencelist.all %}
+                        <tr>
+                          <td><a href="{% url 'dashExperience' entity.id exp.id %}">{{exp.name}}</a></td>
+                          <td>{{entity.joy}}</td>
+                          <td>{{entity.sadness}}</td>
+                          <td>{{entity.fear}}</td>
+                          <td>{{entity.anger}}</td>
+                          <td>{{entity.analytical}}</td>
+                          <td>{{entity.confident}}</td>
+                          <td>{{entity.tentative}}</td>
+                          <td>{{exp.create_t}}</td>
+                          <td>{{exp.process_t}}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
               </div>
             </div>
             <!-- /.box-body -->
