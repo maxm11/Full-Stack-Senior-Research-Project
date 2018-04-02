@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class appConfig(AppConfig):
+class SrpConfig(AppConfig):
     name = 'app'
