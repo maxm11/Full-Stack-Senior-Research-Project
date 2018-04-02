@@ -1,6 +1,6 @@
 # Create your tasks here
 from __future__ import absolute_import, unicode_literals
-from .libs.nlp import text_sentiment
+#from .libs.nlp import text_sentiment
 from .models import Entity, Experience, Sentence, Noun
 from decimal import Decimal
 from django.http import HttpResponse
@@ -30,13 +30,13 @@ def experience_intake(request):
 
     # Run Text Sentiment
     # Output : sent_score, sent_mag, sentences[list]
-    experience.sent_score, experience.sent_mag, sentences = text_sentiment(experience_content)
+    #experience.sent_score, experience.sent_mag, sentences = text_sentiment(experience_content)
 
     # Save Experience
-    experience.save()
+    #experience.save()
 
     # Breakdown the sentences and save them to the database
-    for sent in sentences:
+    '''for sent in sentences:
         try:
             score = sent['sentiment']['score']
             mag = sent['sentiment']['magnitude']
@@ -45,7 +45,7 @@ def experience_intake(request):
             mag = 0
         s = Sentence(content=sent['text']['content'], sent_score=score, sent_mag=mag, experience_id=experience.id, entity_id=experience.entity_id, create_t=0)
         s.save()
-    
+    '''
     return HttpResponse(status=200)
 
 def noun_display(noun, entity_id):

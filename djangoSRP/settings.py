@@ -79,17 +79,13 @@ WSGI_APPLICATION = 'djangoSRP.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'srp',
-        'USER': 'postgres',
-        'PASSWORD': 'JsHHcB4IvKPI9lwI',
+        'HOST': '127.0.0.1',
+        'NAME': 'django',
+        'USER': 'django',
+        'PASSWORD': '72ac220380e7ad189b95d8cbfddcbcd9',
         'PORT': '5432'
     }
 }
-DATABASES['default']['HOST'] = '/cloudsql/srpconcai-1510598935002:us-west1:srp1'
-if os.getenv('GAE_INSTANCE'):
-    pass
-else:
-    DATABASES['default']['HOST'] = '127.0.0.1'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -127,6 +123,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = 'https://storage.googleapis.com/srp-1/static/'
-
-STATIC_ROOT = 'static.local/'
+STATIC_ROOT = 'static/'
