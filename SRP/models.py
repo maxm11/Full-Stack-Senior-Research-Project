@@ -3,9 +3,9 @@ from django.db import models
 # Create your models here.
 class Entity(models.Model):
     class Meta:
-    permissions = (
-      ("man_entity", "Can manipulate Entity"),
-    )
+        permissions = (
+        ("man_entity", "Can manipulate Entity"),
+        )
     # Identification Attributes
     name = models.TextField()
     current_t = models.DecimalField(default=0, max_digits=20, decimal_places=15)
@@ -33,9 +33,9 @@ tentative
 
 class Experience(models.Model):
     class Meta:
-    permissions = (
-      ("man_experience", "Can manipulate Experience"),
-    )
+        permissions = (
+        ("man_experience", "Can manipulate Experience"),
+        )
     # Identification Attributes
     name = models.TextField()
     content = models.TextField()
@@ -56,9 +56,9 @@ class Experience(models.Model):
 
 class Sentence(models.Model):
     class Meta:
-    permissions = (
-      ("man_sent", "Can manipulate Sentence"),
-    )
+        permissions = (
+        ("man_sent", "Can manipulate Sentence"),
+        )
     content = models.TextField()
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
@@ -78,9 +78,9 @@ class Sentence(models.Model):
 
 class Noun(models.Model):
     class Meta:
-    permissions = (
-      ("man_noun", "Can manipulate Noun"),
-    )
+        permissions = (
+        ("man_noun", "Can manipulate Noun"),
+        )
     noun = models.TextField()
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
