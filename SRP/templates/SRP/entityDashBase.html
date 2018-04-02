@@ -122,12 +122,12 @@
                       <td>{{exp.sent_score}}</td>
                       <td>{{exp.sent_mag}}</td>
                       <td>{{exp.create_t}}</td>
-                      <td>NOT IMPLEMENTED</td>
+                      <td>{{exp.process_t}}</td>
                     </tr>
                     {% endfor %}
                   </tbody>
                 </table>
-                <a href="{% url 'experienceList' entity.id %}"><center>Older Experiences...</center></a>
+                <a href="{% url 'experienceList' entity.id %}"><center>More Experiences</center></a>
               </div>
             </div>
             <!-- /.box-body -->

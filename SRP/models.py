@@ -18,13 +18,13 @@ class Entity(models.Model):
     tentative = models.DecimalField(default=0, max_digits=20, decimal_places=15)
 
     '''
-     joy
-    sadness
-    fear 
-    anger
-    analytical
-    confident
-    tentative
+joy
+sadness
+fear 
+anger
+analytical
+confident
+tentative
     '''
 
 class Experience(models.Model):
@@ -32,7 +32,8 @@ class Experience(models.Model):
     name = models.TextField()
     content = models.TextField()
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
-    create_t = models.IntegerField(default=0) 
+    create_t = models.IntegerField(default=0)
+    process_t = models.IntegerField(default=-1)
 
     # Emotional Attributes
     # Fun and Happiness are the same
@@ -50,6 +51,7 @@ class Sentence(models.Model):
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
     create_t = models.IntegerField(default=0)
+    process_t = models.IntegerField(default=-1)
 
     # Emotional Attributes
     # Fun and Happiness are the same
@@ -67,6 +69,7 @@ class Noun(models.Model):
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
     create_t = models.IntegerField(default=0)
+    process_t = models.IntegerField(default=-1)
 
     # Emotional Attributes
     # Fun and Happiness are the same
