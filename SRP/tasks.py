@@ -18,7 +18,7 @@ def div(x, y):
 def xsum(numbers):
     return sum(numbers)
 
-def experience_intake(exp_id):
+def experience_intake(exp_id, time):
     experience_id = int(exp_id)
     experience = Experience.objects.filter(pk=experience_id)[0]
 
@@ -40,6 +40,7 @@ def experience_intake(exp_id):
 
 
     # Save Experience
+    experience.process_time = time
     experience.save()
 
     # Breakdown the sentences and save them to the database
@@ -47,14 +48,12 @@ def experience_intake(exp_id):
         print("sent sent")
         for sent in analysis['sentences_tone']:
             content = sent['text']
-            print(content)
+            s = Sentence(content=content, experience_id=experience.id, entity_id=experience.entity_id, t_create=time)
             for t in sent['tones']:
                 tid = t['tone_id']
                 score = t['score']
-                print(tid)
-                print(score)
-        #s = Sentence(content=sent['text']['content'], sent_score=score, sent_mag=mag, experience_id=experience.id, entity_id=experience.entity_id, create_t=0)
-        #s.save()
+                exec("s." + tid + "=  score")
+            s.save()
 
 def noun_display(noun, entity_id):
     context = dict()
