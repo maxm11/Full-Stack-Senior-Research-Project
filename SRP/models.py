@@ -8,18 +8,18 @@ class Entity(models.Model):
         )
     # Identification Attributes
     name = models.TextField()
-    current_t = models.DecimalField(default=0, max_digits=20, decimal_places=15)
+    current_t = models.DecimalField(default=0, max_digits=20, decimal_places=6)
 
     # Emotional Attributes
     # Fun and Happiness are the same
-    joy = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    sadness = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    fear = models.DecimalField(default=0, max_digits=20, decimal_places=15)
+    joy = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    sadness = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    fear = models.DecimalField(default=0, max_digits=20, decimal_places=6)
     # Hatred and Anger are the same
-    anger = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    analytical = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    confident = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    tentative = models.DecimalField(default=0, max_digits=20, decimal_places=15)
+    anger = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    analytical = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    confident = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    tentative = models.DecimalField(default=0, max_digits=20, decimal_places=6)
 
     '''
 joy
@@ -45,14 +45,14 @@ class Experience(models.Model):
 
     # Emotional Attributes
     # Fun and Happiness are the same
-    joy = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    sadness = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    fear = models.DecimalField(default=0, max_digits=20, decimal_places=15)
+    joy = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    sadness = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    fear = models.DecimalField(default=0, max_digits=20, decimal_places=6)
     # Hatred and Anger are the same
-    anger = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    analytical = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    confident = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    tentative = models.DecimalField(default=0, max_digits=20, decimal_places=15)
+    anger = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    analytical = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    confident = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    tentative = models.DecimalField(default=0, max_digits=20, decimal_places=6)
 
 class Sentence(models.Model):
     class Meta:
@@ -67,14 +67,14 @@ class Sentence(models.Model):
 
     # Emotional Attributes
     # Fun and Happiness are the same
-    joy = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    sadness = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    fear = models.DecimalField(default=0, max_digits=20, decimal_places=15)
+    joy = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    sadness = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    fear = models.DecimalField(default=0, max_digits=20, decimal_places=6)
     # Hatred and Anger are the same
-    anger = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    analytical = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    confident = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    tentative = models.DecimalField(default=0, max_digits=20, decimal_places=15)
+    anger = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    analytical = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    confident = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    tentative = models.DecimalField(default=0, max_digits=20, decimal_places=6)
 
 class Noun(models.Model):
     class Meta:
@@ -89,11 +89,11 @@ class Noun(models.Model):
 
     # Emotional Attributes
     # Fun and Happiness are the same
-    joy = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    sadness = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    fear = models.DecimalField(default=0, max_digits=20, decimal_places=15)
+    joy = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    sadness = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    fear = models.DecimalField(default=0, max_digits=20, decimal_places=6)
     # Hatred and Anger are the same
-    anger = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    analytical = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    confident = models.DecimalField(default=0, max_digits=20, decimal_places=15)
-    tentative = models.DecimalField(default=0, max_digits=20, decimal_places=15)
+    anger = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    analytical = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    confident = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    tentative = models.DecimalField(default=0, max_digits=20, decimal_places=6)
