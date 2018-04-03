@@ -8,7 +8,7 @@ class Entity(models.Model):
         )
     # Identification Attributes
     name = models.TextField()
-    current_t = models.DecimalField(default=0, max_digits=20, decimal_places=6)
+    current_t = models.IntegerField(default=0)
 
     # Emotional Attributes
     # Fun and Happiness are the same
