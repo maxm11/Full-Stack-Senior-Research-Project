@@ -37,7 +37,7 @@ def experience_intake(exp_id):
     for t in analysis['document_tone']['tones']:
         tid = t['tone_id']
         score = t['score']
-        print(tid)
+        exec("experience." + tid + "=  score")
         print(score)
 
 
