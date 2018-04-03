@@ -6,6 +6,7 @@ from decimal import Decimal
 from .libs.nlp import tone
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Sample Tasks
 def add(x, y):
@@ -29,6 +30,7 @@ def experience_intake(exp_id):
     # Run Text Sentiment
     # Output : sent_score, sent_mag, sentences[list]
     analysis = tone(experience_content)
+    analysis = json.loads(analysis)
     print(analysis)
 
     # Document Sentiment
