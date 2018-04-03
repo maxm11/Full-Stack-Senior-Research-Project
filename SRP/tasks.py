@@ -5,7 +5,6 @@ from decimal import Decimal
 from .libs.nlp import tone
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
 
 # Sample Tasks
 def add(x, y):
@@ -38,7 +37,6 @@ def experience_intake(exp_id):
         tid = t['tone_id']
         score = t['score']
         exec("experience." + tid + "=  score")
-        print(score)
 
 
     # Save Experience
