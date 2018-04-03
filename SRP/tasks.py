@@ -29,7 +29,6 @@ def experience_intake(exp_id):
     # Run Text Sentiment
     # Output : sent_score, sent_mag, sentences[list]
     analysis = tone(experience_content)
-    analysis = json.loads(analysis)
     print(analysis)
 
     # Document Sentiment
