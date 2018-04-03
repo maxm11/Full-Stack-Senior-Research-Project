@@ -1,6 +1,5 @@
 # Create your tasks here
 from __future__ import absolute_import, unicode_literals
-#from .libs.nlp import text_sentiment
 from .models import Entity, Experience, Sentence, Noun
 from decimal import Decimal
 from .libs.nlp import tone
@@ -35,9 +34,9 @@ def experience_intake(exp_id):
 
     # Document Sentiment
     print("doc sent")
-    for t in analysis['document_tone']:
-        tid = t.tone_id
-        score = t.score
+    for t in analysis['document_tone']['tones']:
+        tid = t['tone_id']
+        score = t['score']
         print(tid)
         print(score)
 
@@ -46,23 +45,16 @@ def experience_intake(exp_id):
     #experience.save()
 
     # Breakdown the sentences and save them to the database
-    try:
+    if analysis['sentences_tone']:
         print("sent sent")
         for sent in analysis['sentences_tone']:
-            content = sent.text
+            content = sent['text']
             print(content)
-            for t in sent.tones:
+            for t in sent['tones']:
                 tid = t.tone_id
                 score = t.score
                 print(tid)
                 print(score)
-    except KeyError:
-        content = experience_content
-        for t in analysis['document_tone']:
-            tid = t.tone_id
-            score = t.score
-            print(tid)
-            print(score)
         #s = Sentence(content=sent['text']['content'], sent_score=score, sent_mag=mag, experience_id=experience.id, entity_id=experience.entity_id, create_t=0)
         #s.save()
 
