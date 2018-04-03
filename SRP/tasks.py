@@ -40,7 +40,7 @@ def experience_intake(exp_id, time):
 
 
     # Save Experience
-    experience.process_time = time
+    experience.process_t = time
     experience.save()
 
     # Breakdown the sentences and save them to the database
@@ -48,7 +48,7 @@ def experience_intake(exp_id, time):
         print("sent sent")
         for sent in analysis['sentences_tone']:
             content = sent['text']
-            s = Sentence(content=content, experience_id=experience.id, entity_id=experience.entity_id, t_create=time)
+            s = Sentence(content=content, experience_id=experience.id, entity_id=experience.entity_id, create_t=time)
             for t in sent['tones']:
                 tid = t['tone_id']
                 score = t['score']
