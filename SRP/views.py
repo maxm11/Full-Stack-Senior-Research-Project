@@ -63,7 +63,7 @@ def add(request, entity_id):
         entity = get_object_or_404(Entity, pk=entity_id)
         e = Experience(name=name, content=content, entity_id=entity.id, create_t=time)
         e.save()
-        #create_task('srpconcai-1510598935002', 'task1', 'us-central1', 'task/expintake', 'experience_id={}'.format(e.id), in_seconds=3)
+        experience_intake(e.id, entity.current_t)
         return HttpResponseRedirect(reverse('dashExperience', args=(entity.id, e.id)))
 
 @login_required

@@ -5,6 +5,7 @@ from decimal import Decimal
 from .libs.nlp import tone
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from background_task import background
 
 # Sample Tasks
 def add(x, y):
@@ -18,6 +19,7 @@ def div(x, y):
 def xsum(numbers):
     return sum(numbers)
 
+@background(schedule=1)
 def experience_intake(exp_id, time):
     experience_id = int(exp_id)
     experience = Experience.objects.filter(pk=experience_id)[0]
