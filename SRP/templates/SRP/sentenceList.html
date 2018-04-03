@@ -32,27 +32,37 @@
             <div class="box-body">
               <div class="table-responsive">
                 <table class="table no-margin">
-                  <thead>
-                    <tr>
-                      <th>Content</th>
-                      <th>Sentiment Score</th>
-                      <th>Sentiment Magnitude</th>
-                      <th>Time Created</th>
-                      <th>Processed</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for sent in sentlist.all %}
-                    <tr>
-                      <td>{{sent.content}}</td>
-                      <td>{{sent.sent_score}}</td>
-                      <td>{{sent.sent_mag}}</td>
-                      <td>{{sent.create_t}}</td>
-                      <td>NOT IMPLEMENTED</td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
+                    <thead>
+                      <tr>
+                        <th>Content</th>
+                        <th>Joy</th>
+                        <th>Sadness</th>
+                        <th>Fear</th>
+                        <th>Anger</th>
+                        <th>Analytical</th>
+                        <th>Confident</th>
+                        <th>Tentative</th>
+                        <th>Time Created</th>
+                        <th>Processed</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for sent in sentlist.all %}
+                      <tr>
+                        <td>{{sent.content}}</td>
+                        <td>{{sent.joy}}</td>
+                        <td>{{sent.sadness}}</td>
+                        <td>{{sent.fear}}</td>
+                        <td>{{sent.anger}}</td>
+                        <td>{{sent.analytical}}</td>
+                        <td>{{sent.confident}}</td>
+                        <td>{{sent.tentative}}</td>
+                        <td>{{sent.create_t}}</td>
+                        <td>{{sent.process_t}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
               </div>
             </div>
             <!-- /.box-body -->

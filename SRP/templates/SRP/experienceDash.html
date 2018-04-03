@@ -74,24 +74,34 @@
             <div class="table-responsive">
                 <table class="table no-margin">
                     <thead>
-                    <tr>
+                        <tr>
                         <th>Content</th>
-                        <th>Sentiment Score</th>
-                        <th>Sentiment Magnitude</th>
+                        <th>Joy</th>
+                        <th>Sadness</th>
+                        <th>Fear</th>
+                        <th>Anger</th>
+                        <th>Analytical</th>
+                        <th>Confident</th>
+                        <th>Tentative</th>
                         <th>Time Created</th>
                         <th>Processed</th>
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
-                    {% for sent in sentlist.all %}
-                    <tr>
+                        {% for sent in sentlist.all %}
+                        <tr>
                         <td>{{sent.content}}</td>
-                        <td>{{sent.sent_score}}</td>
-                        <td>{{sent.sent_mag}}</td>
+                        <td>{{sent.joy}}</td>
+                        <td>{{sent.sadness}}</td>
+                        <td>{{sent.fear}}</td>
+                        <td>{{sent.anger}}</td>
+                        <td>{{sent.analytical}}</td>
+                        <td>{{sent.confident}}</td>
+                        <td>{{sent.tentative}}</td>
                         <td>{{sent.create_t}}</td>
-                        <td>NOT IMPLEMENTED</td>
-                    </tr>
-                    {% endfor %}
+                        <td>{{sent.process_t}}</td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
                 <a href="{% url 'sentenceList' entity.id experience.id %}"><center>All Sentences...</center></a>
