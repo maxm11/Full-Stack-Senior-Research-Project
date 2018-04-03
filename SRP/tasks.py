@@ -30,6 +30,7 @@ def experience_intake(exp_id):
     # Output : sent_score, sent_mag, sentences[list]
     analysis = tone(experience_content)
     print(analysis)
+    print()
 
     # Document Sentiment
     print("doc sent")
@@ -50,8 +51,8 @@ def experience_intake(exp_id):
             content = sent['text']
             print(content)
             for t in sent['tones']:
-                tid = t.tone_id
-                score = t.score
+                tid = t['tone_id']
+                score = t['score']
                 print(tid)
                 print(score)
         #s = Sentence(content=sent['text']['content'], sent_score=score, sent_mag=mag, experience_id=experience.id, entity_id=experience.entity_id, create_t=0)
