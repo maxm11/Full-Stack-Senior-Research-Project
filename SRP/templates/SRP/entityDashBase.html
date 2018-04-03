@@ -124,13 +124,13 @@
                     {% for exp in experiencelist.all %}
                     <tr>
                       <td><a href="{% url 'dashExperience' entity.id exp.id %}">{{exp.name}}</a></td>
-                      <td>{{entity.joy}}</td>
-                      <td>{{entity.sadness}}</td>
-                      <td>{{entity.fear}}</td>
-                      <td>{{entity.anger}}</td>
-                      <td>{{entity.analytical}}</td>
-                      <td>{{entity.confident}}</td>
-                      <td>{{entity.tentative}}</td>
+                      <td>{{exp.joy}}</td>
+                      <td>{{exp.sadness}}</td>
+                      <td>{{exp.fear}}</td>
+                      <td>{{exp.anger}}</td>
+                      <td>{{exp.analytical}}</td>
+                      <td>{{exp.confident}}</td>
+                      <td>{{exp.tentative}}</td>
                       <td>{{exp.create_t}}</td>
                       <td>{{exp.process_t}}</td>
                     </tr>
