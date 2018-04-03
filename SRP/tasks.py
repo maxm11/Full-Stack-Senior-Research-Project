@@ -42,7 +42,7 @@ def experience_intake(exp_id):
 
 
     # Save Experience
-    #experience.save()
+    experience.save()
 
     # Breakdown the sentences and save them to the database
     if analysis['sentences_tone']:
