@@ -28,11 +28,8 @@ def experience_intake(exp_id, time):
     # Run Text Sentiment
     # Output : sent_score, sent_mag, sentences[list]
     analysis = tone(experience_content)
-    print(analysis)
-    print()
 
     # Document Sentiment
-    print("doc sent")
     for t in analysis['document_tone']['tones']:
         tid = t['tone_id']
         score = t['score']
@@ -45,7 +42,6 @@ def experience_intake(exp_id, time):
 
     # Breakdown the sentences and save them to the database
     if analysis['sentences_tone']:
-        print("sent sent")
         for sent in analysis['sentences_tone']:
             content = sent['text']
             s = Sentence(content=content, experience_id=experience.id, entity_id=experience.entity_id, create_t=time)
