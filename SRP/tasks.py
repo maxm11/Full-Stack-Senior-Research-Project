@@ -33,8 +33,8 @@ def experience_intake(exp_id):
     # Document Sentiment
     print("doc sent")
     for t in analysis['document_tone']:
-        tid = t['tone_id']
-        score = t['score']
+        tid = t.tone_id
+        score = t.score
         print(tid)
         print(score)
 
@@ -46,18 +46,18 @@ def experience_intake(exp_id):
     try:
         print("sent sent")
         for sent in analysis['sentences_tone']:
-            content = sent['text']
+            content = sent.text
             print(content)
-            for t in sent['tones']:
-                tid = t['tone_id']
-                score = t['score']
+            for t in sent.tones:
+                tid = t.tone_id
+                score = t.score
                 print(tid)
                 print(score)
     except KeyError:
         content = experience_content
         for t in analysis['document_tone']:
-            tid = t['tone_id']
-            score = t['score']
+            tid = t.tone_id
+            score = t.score
             print(tid)
             print(score)
         #s = Sentence(content=sent['text']['content'], sent_score=score, sent_mag=mag, experience_id=experience.id, entity_id=experience.entity_id, create_t=0)
