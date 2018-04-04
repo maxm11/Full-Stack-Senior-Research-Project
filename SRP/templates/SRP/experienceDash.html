@@ -135,7 +135,7 @@ var radarChartCanvas = document.getElementById("radarChart1");
           pointBorderColor    : '#c1c7d1',
           pointHoverBackgroundColor  : '#fff',
           pointHoverBorderColor : 'rgba(220,220,220,1)',
-          data                : [{{exp.joy}}, {{exp.sadness}}, {{exp.fear}}, {{exp.anger}}, {{exp.analytical}}, {{exp.confident}}, {{exp.tentative}}]
+          data                : [{{experience.joy}}, {{experience.sadness}}, {{experience.fear}}, {{experience.anger}}, {{experience.analytical}}, {{experience.confident}}, {{experience.tentative}}]
         } 
       ]
     };
@@ -181,13 +181,13 @@ window.onload = function(){
 };
 </script>
 <!-- jQuery 3 -->
-<script src="{% static 'SRP/jquery.min.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="{% static 'SRP/bootstrap.min.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- FastClick -->
-<script src="{% static 'SRP/fastclick.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js" integrity="sha256-t6SrqvTQmKoGgi5LOl0AUy+lBRtIvEJ+++pLAsfAjWs=" crossorigin="anonymous"></script>
 <!-- AdminLTE App -->
-<script src="{% static 'SRP/adminlte.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js" integrity="sha256-Q/aizhMDU+m2KQAJOfeYLCMrkltKkaNkvdGr2bcxA74=" crossorigin="anonymous"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{% static 'SRP/demo.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/demo.js" integrity="sha256-FJs2lhA7yGqzK+bE6sYNwziPqEg8nJnRtf/ZTw+8wIA=" crossorigin="anonymous"></script>
 {% endblock %}
