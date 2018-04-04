@@ -41,9 +41,9 @@ def experience_preprocessing(text, title, entity_id, current_t):
             stri = str(i)
             a = a + " " + stri
         name = title + " " + str(count)
-        e = Experience(name=name, content=a, entity_id=entity_id, create_t=entity_current_t)
+        e = Experience(name=name, content=a, entity_id=entity_id, create_t=current_t)
         e.save()
-        experience_intake(e.id, entity.current_t)
+        experience_intake(e.id, current_t)
     
     return True
 
