@@ -61,7 +61,7 @@ def add(request, entity_id):
         return render(request, 'SRP/createExperience.html', context)
     else:
         experience_preprocessing(text=content, title=name, entity_id=entity.id, current_t=entity.current_t)
-        return HttpResponseRedirect(reverse('dashExperience', args=(entity.id, e.id)))
+        return HttpResponseRedirect(reverse('dashEntity', args=(entity.id)))
 
 @login_required
 def dashEntity(request, entity_id):
