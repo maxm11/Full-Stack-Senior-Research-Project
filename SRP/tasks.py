@@ -6,6 +6,7 @@ from .libs.nlp import tone
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from background_task import background
+from textblob import TextBlob
 
 # Sample Tasks
 def add(x, y):
@@ -18,6 +19,33 @@ def div(x, y):
 
 def xsum(numbers):
     return sum(numbers)
+
+@background(schedule=1)
+def experience_preprocessing(text, title, entity):
+    t = TextBlob(text)
+
+    addition = 0
+    explist = []
+    while True:
+        exp = t.sentences[0+addition: 99+addition]
+        if exp:
+            explist.append(exp)
+            addition =+ 100
+        else:
+            break
+
+    count = 1
+    for j in explist:
+        a = str()
+        for i in j:
+            stri = str(i)
+            a = a + " " + stri
+        name = title + " " + str(count)
+        e = Experience(name=name, content=a, entity_id=entity.id, create_t=entity.current_t)
+        e.save()
+        experience_intake(e.id, entity.current_t)
+    
+    return True
 
 @background(schedule=1)
 def experience_intake(exp_id, time):

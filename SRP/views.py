@@ -50,20 +50,17 @@ def addExperience(request, entity_id):
 @login_required
 @permission_required('man_experience')
 def add(request, entity_id):
+    entity = get_object_or_404(Entity, pk=entity_id)
     try:
         name = request.POST['prod_name']
         content = request.POST['prod_content']
-        time = 0
+        time = entity.current_t
     except KeyError:
-        entity = get_object_or_404(Entity, pk=entity_id)
         context = gen_nbar_context()
         context.update(entity=entity)
         return render(request, 'SRP/createExperience.html', context)
     else:
-        entity = get_object_or_404(Entity, pk=entity_id)
-        e = Experience(name=name, content=content, entity_id=entity.id, create_t=time)
-        e.save()
-        experience_intake(e.id, entity.current_t)
+        experience_preprocessing(text=content, title=name, entity=entity)
         return HttpResponseRedirect(reverse('dashExperience', args=(entity.id, e.id)))
 
 @login_required
