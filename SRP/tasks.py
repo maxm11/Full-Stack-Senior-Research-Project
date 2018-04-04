@@ -21,7 +21,7 @@ def xsum(numbers):
     return sum(numbers)
 
 @background(schedule=1)
-def experience_preprocessing(text, title, entity):
+def experience_preprocessing(text, title, entity_id, current_t):
     t = TextBlob(text)
 
     addition = 0
@@ -41,7 +41,7 @@ def experience_preprocessing(text, title, entity):
             stri = str(i)
             a = a + " " + stri
         name = title + " " + str(count)
-        e = Experience(name=name, content=a, entity_id=entity.id, create_t=entity.current_t)
+        e = Experience(name=name, content=a, entity_id=entity_id, create_t=entity_current_t)
         e.save()
         experience_intake(e.id, entity.current_t)
     
