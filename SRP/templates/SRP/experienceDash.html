@@ -36,7 +36,6 @@
               <!-- /.box-header -->
               <div class="box-body">
                 <h4 id='currentExpName'>"{{experience.name}}"</h4>
-                <center><span>Overall Sentiment</span></center>
                 <canvas id="radarChart1"></canvas>
               </div>
               <!-- /.box-body -->
@@ -129,7 +128,7 @@ var radarChartCanvas = document.getElementById("radarChart1");
       labels  : ['Joy','Sadness','Fear ','Anger','Analytical','Confident','Tentative'],
       datasets: [
         {
-          label               : 'Entity',
+          label               : 'Experience Emotion',
           backgroundColor     : 'rgba(0, 214, 222, 0.3)',
           borderColor         : 'rgba(0, 214, 222, 1)',
           pointBackgroundColor : 'rgba(0, 214, 222, 1)',
