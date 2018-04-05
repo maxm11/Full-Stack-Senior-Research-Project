@@ -118,6 +118,7 @@
                       <th>Tentative</th>
                       <th>Time Created</th>
                       <th>Processed</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -133,6 +134,7 @@
                       <td>{{exp.tentative}}</td>
                       <td>{{exp.create_t}}</td>
                       <td>{{exp.process_t}}</td>
+                      <td><a href="{% url 'deleteExperience' entity.id exp.id%}"><button class="btn btn-red btn-box-tool">-</button></a></td>
                     </tr>
                     {% endfor %}
                   </tbody>
