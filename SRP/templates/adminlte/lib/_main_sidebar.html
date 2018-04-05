@@ -15,7 +15,6 @@
     <a href="{% url 'dashEntity' entity.id %}">
         {{ entity.name }}
     </a>
-    <a href="{% url 'deleteEntity' entity.id %}"><button class="btn btn-danger btn-box-tool">-</button></a>
     </li>
     {% endfor %}
 {% endblock nav_links %}

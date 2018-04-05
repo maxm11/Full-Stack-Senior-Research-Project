@@ -15,7 +15,7 @@
 {% block content_header %}
   <section class="content-header">
       <h1>
-        Entity : {{entity.name}}
+        Entity : {{entity.name}} <a href="{% url 'deleteEntity' entity.id %}"><button class="btn btn-danger btn-box-tool">-</button></a>
       </h1>
       {% block breadcrumbs %}
         <ol class="breadcrumb">
