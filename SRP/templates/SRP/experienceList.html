@@ -26,6 +26,11 @@
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">{{entity.name}}'s Experiences</h3>
+              <div class="box-tools pull-right">
+                <!-- Buttons, labels, and many other things can be placed here! -->
+                <!-- Here is a label for example -->
+                <a href="{% url 'addExperience' entity.id %}"><button class="btn btn-default btn-box-tool">+</button></a>
+              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
