@@ -82,7 +82,7 @@ class Noun(models.Model):
         permissions = (
         ("man_noun", "Can manipulate Noun"),
         )
-    noun = models.TextField()
+    noun = models.IntegerField()
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
     create_t = models.IntegerField(default=0)

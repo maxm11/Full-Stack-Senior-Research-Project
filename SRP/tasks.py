@@ -20,6 +20,14 @@ def div(x, y):
 def xsum(numbers):
     return sum(numbers)
 
+def entity_bg(ent_id):
+    entity_id = int(ent_id)
+    entity = Entity.objects.filter(pk=entity_id)[0]
+
+    sent_ar = Sentence.objects.filter(entity_id=entity.id, process_t=-1)[:5]
+    for sent in sent_ar:
+        pass
+
 @background(schedule=1)
 def experience_intake(exp_id, time):
     experience_id = int(exp_id)
