@@ -6,4 +6,4 @@ gevent
 wheel
 django-background-tasks
 watson-developer-cloud==1.0.1
-dandelion-eu
+django-dandelion
