@@ -15,7 +15,7 @@
 {% block content_header %}
   <section class="content-header">
       <h1>
-        Entity : {{entity.name}} <a href="{% url 'deleteEntity' entity.id %}"><button class="btn btn-danger btn-box-tool">-</button></a>
+        Entity : {{entity.name}} <a href="{% url 'deleteEntity' entity.id %}"><i class="fas fa-minus-circle"></i></a>
       </h1>
       {% block breadcrumbs %}
         <ol class="breadcrumb">
@@ -134,7 +134,7 @@
                       <td>{{exp.tentative}}</td>
                       <td>{{exp.create_t}}</td>
                       <td>{{exp.process_t}}</td>
-                      <td><a href="{% url 'deleteExperience' entity.id exp.id%}"><button class="btn btn-danger btn-box-tool">-</button></a></td>
+                      <td><a href="{% url 'deleteExperience' entity.id exp.id%}"><i class="fas fa-minus-circle"></i></a></td>
                     </tr>
                     {% endfor %}
                   </tbody>

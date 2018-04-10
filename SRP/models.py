@@ -9,6 +9,7 @@ class Entity(models.Model):
     # Identification Attributes
     name = models.TextField()
     current_t = models.IntegerField(default=0)
+    current_process = models.BooleanField(default=False)
 
     # Emotional Attributes
     # Fun and Happiness are the same
