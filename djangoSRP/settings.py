@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'background_task'
+    'background_task',
+    'django_dandelion'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Dandelion Settings
+DANDELION_TOKEN = "6170a0289b9e420b9d880ed17b4f9f13"
 
 
 # Static files (CSS, JavaScript, Images)
