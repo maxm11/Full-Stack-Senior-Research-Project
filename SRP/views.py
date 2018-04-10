@@ -86,9 +86,14 @@ def deleteExperience(request, entity_id, exp_id):
 def dashEntity(request, entity_id):
     entity = get_object_or_404(Entity, pk=entity_id)
     experiencelist = Experience.objects.filter(entity_id=entity.id).order_by('pk')[:5]
+    # Time Step Variables
     sentcount = Sentence.objects.filter(entity_id=entity.id).count()
+    try:
+        t_width = entity.current_t/sentcount
+    except ZeroDivisionError:
+        t_width = 0
     context = gen_nbar_context()
-    context.update(entity=entity, experiencelist=experiencelist, sentcount=sentcount)
+    context.update(entity=entity, experiencelist=experiencelist, sentcount=sentcount, t_width=t_width)
     return render(request, 'SRP/entityDashPre.html', context)
 
 @login_required
