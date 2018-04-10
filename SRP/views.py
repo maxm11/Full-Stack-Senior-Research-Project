@@ -60,8 +60,10 @@ def add(request, entity_id):
         context.update(entity=entity)
         return render(request, 'SRP/createExperience.html', context)
     else:
-        experience_preprocessing(text=content, title=name, entity_id=entity.id, current_t=entity.current_t)
-        return HttpResponseRedirect(reverse('dashEntity', args=(entity.id, )))
+        e = Experience(name=name, content=content, entity_id=entity.id, create_t=time)
+        e.save()
+        experience_intake(e.id, entity.current_t)
+        return HttpResponseRedirect(reverse('dashExperience', args=(entity.id, e.id)))
 
 @login_required
 @permission_required("man_entity")

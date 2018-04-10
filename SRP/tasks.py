@@ -21,33 +21,6 @@ def xsum(numbers):
     return sum(numbers)
 
 @background(schedule=1)
-def experience_preprocessing(text, title, entity_id, current_t):
-    t = TextBlob(text)
-
-    addition = 0
-    explist = []
-    while True:
-        exp = t.sentences[0+addition: 99+addition]
-        if exp:
-            explist.append(exp)
-            addition =+ 100
-        else:
-            break
-
-    count = 1
-    for j in explist:
-        a = str()
-        for i in j:
-            stri = str(i)
-            a = a + " " + stri
-        name = title + " " + str(count)
-        e = Experience(name=name, content=a, entity_id=entity_id, create_t=current_t)
-        e.save()
-        experience_intake(e.id, current_t)
-    
-    return True
-
-@background(schedule=1)
 def experience_intake(exp_id, time):
     experience_id = int(exp_id)
     experience = Experience.objects.filter(pk=experience_id)[0]
