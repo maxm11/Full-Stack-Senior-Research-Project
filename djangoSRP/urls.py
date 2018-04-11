@@ -30,6 +30,7 @@ urlpatterns = [
     path('entity/new/create/create/', views.create, name='create'),
     path('entity/<int:entity_id>/delete/', views.purge, name="deleteEntity"),
     path('entity/<int:entity_id>/', views.dashEntity, name='dashEntity'),
+    path('entity/<int:entity_id>/toggle/', views.toggle, name='toggleEntity'),
     path('entity/<int:entity_id>/list/', views.experienceList, name='experienceList'),
     path('entity/<int:entity_id>/search/noun/', views.noun_search, name='noun_search'),
     path('entity/<int:entity_id>/edit/', views.editEntity, name='editEntity'),

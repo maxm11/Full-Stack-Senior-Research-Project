@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Entity, Experience, Sentence, Noun
-from .tasks import experience_intake, noun_display
+from .tasks import experience_intake, noun_display, entity_bg
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
@@ -38,6 +38,7 @@ def create(request):
     else:
         e = Entity(name=name,joy=joy,sadness=sadness,fear=fear,anger=anger,analytical=analytical,confident=confident,tentative=tentative)
         e.save()
+        entity_bg(e.id)
         return HttpResponseRedirect(reverse('dashEntity', args=(e.id,)))
 
 @login_required
@@ -95,6 +96,14 @@ def dashEntity(request, entity_id):
     context = gen_nbar_context()
     context.update(entity=entity, experiencelist=experiencelist, sentcount=sentcount, t_width=t_width)
     return render(request, 'SRP/entityDashPre.html', context)
+
+@login_required
+@permission_required('man_entity')
+def toggle(request, entity_id):
+    entity = get_object_or_404(Entity, pk=entity_id)
+    entity.current_process = not entity.current_process
+
+    return HttpResponseRedirect('dashEntity', args=(entity.id, ))
 
 @login_required
 @permission_required('man_noun')

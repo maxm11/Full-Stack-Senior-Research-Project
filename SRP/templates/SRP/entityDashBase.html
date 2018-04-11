@@ -45,6 +45,7 @@
     <div class="col-lg-4 col-xs-8">
       <!-- Apply any bg-* class to to the info-box to color it -->
       <div class="info-box bg-gray">
+        <a href="{% url 'toggleEntity' entity.id %}">
         <span class="info-box-icon">
           {% if entity.current_process %}
           <i class="fas fa-pause"></i>
@@ -53,6 +54,7 @@
           {% endif %}
           <i class="fa fa-hourglass"></i>
         </span>
+        </a>
       <div class="info-box-content">
         <span class="info-box-text">Time Step</span>
         <span class="info-box-number">{{entity.current_t}}</span>
