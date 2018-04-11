@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from background_task import background
 from textblob import TextBlob
+from django_dandelion.datatxt import EntityExtraction
 
 # Sample Tasks
 def add(x, y):
@@ -20,15 +21,53 @@ def div(x, y):
 def xsum(numbers):
     return sum(numbers)
 
+class entityBgController():
+    def __init__(self):
+        self.e_run = []
+    def add(self, ent_id):
+        self.e_run.append(ent_id)
+    def remove(self, ent_id):
+        try:
+            e_run.remove(ent_id)
+        except ValueError:
+            raise Exception('Not in Controller Error')
+    def run(self):
+        for i in self.e_run:
+            entity_bg(i)
+
+@background(schedule=1, queue="entity")
 def entity_bg(ent_id):
     entity_id = int(ent_id)
     entity = Entity.objects.filter(pk=entity_id)[0]
 
     sent_ar = Sentence.objects.filter(entity_id=entity.id, process_t=-1)[:5]
     for sent in sent_ar:
-        pass
+        ee = EntityExtraction()
+        text = sent.content
+        ee.params = 'text', text
+        ee.params = 'lang', 'en'
+        ee.params = 'country', 'US'
+        ee.params = 'min_confidence', '0.5'
+        a = ee.analyze()
+        for note in a.annotations:
+            n = Noun()
+            n.noun = note['id']
+            n.joy = sent.joy
+            n.sadness = sent.sadness
+            n.fear = sent.fear
+            n.anger = sent.anger
+            n.analytical = sent.analytical
+            n.confident = sent.confident
+            n.tentative = sent.tentative
+            n.entity_id = entity.id
+            n.experience_id = sent.experience_id
+            n.sentence_id = sent.id
+            n.save()
+        sent.process_t = entity.current_t
+        entity.current_t =+ 1
 
-@background(schedule=1)
+
+@background(schedule=1, queue="experience")
 def experience_intake(exp_id, time):
     experience_id = int(exp_id)
     experience = Experience.objects.filter(pk=experience_id)[0]
