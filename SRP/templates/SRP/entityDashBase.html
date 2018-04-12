@@ -230,7 +230,7 @@ window.onload = function(){
 {% if entity.current_process %}
 <script>
   setTimeout(function() {
-  $(".refresh").load("{% url 'dashEntity' entity.id %} .refresh", function(){})
+  location.reload();
 }, 1000);
 </script>
 {% else %}
