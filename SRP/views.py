@@ -103,7 +103,7 @@ def toggle(request, entity_id):
     entity = get_object_or_404(Entity, pk=entity_id)
     entity.current_process = not entity.current_process
 
-    return HttpResponseRedirect('dashEntity', args=(entity.id, ))
+    return HttpResponseRedirect(reverse('dashEntity', args=(entity.id,)))
 
 @login_required
 @permission_required('man_noun')
