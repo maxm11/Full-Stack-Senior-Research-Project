@@ -51,7 +51,7 @@ def entity_bg(ent_id):
             n.save()
         sent.process_t = entity.current_t
         sent.save()
-        entity.current_t =+ 1
+        entity.current_t += 1
         entity.joy = ((sent.joy + entity.joy)/2)
         entity.sadness = ((sent.sadness + entity.sadness)/2)
         entity.fear = ((sent.fear + entity.fear)/2)
