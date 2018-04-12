@@ -51,7 +51,9 @@ def entity_bg(ent_id):
                 n.sentence_id = sent.id
                 n.save()
             sent.process_t = entity.current_t
+            sent.save()
             entity.current_t =+ 1
+            entity.save()
 
 
 @background(schedule=1, queue="experience")
