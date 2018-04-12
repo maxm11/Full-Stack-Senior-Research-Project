@@ -48,11 +48,10 @@
         <a href="{% url 'toggleEntity' entity.id %}">
         <span class="info-box-icon">
           {% if entity.current_process %}
-          <i class="fas fa-pause"></i>
+          <i class="fas fa-pause" style="color: black"></i>
           {% else %}
-          <i class="fas fa-play"></i>
+          <i class="fas fa-play" style="color: black"></i>
           {% endif %}
-          <i class="fa fa-hourglass"></i>
         </span>
         </a>
       <div class="info-box-content">
