@@ -27,40 +27,39 @@ def entity_bg(ent_id):
     entity = Entity.objects.filter(pk=entity_id)[0]
 
     if entity.current_process:
-        sent_ar = Sentence.objects.filter(entity_id=entity.id, process_t=-1)[0]
-        for sent in sent_ar:
-            ee = EntityExtraction()
-            text = sent.content
-            ee.params = 'text', text
-            ee.params = 'lang', 'en'
-            ee.params = 'country', 'US'
-            ee.params = 'min_confidence', '0.5'
-            a = ee.analyze()
-            for note in a.annotations:
-                n = Noun()
-                n.noun = note['id']
-                n.joy = sent.joy
-                n.sadness = sent.sadness
-                n.fear = sent.fear
-                n.anger = sent.anger
-                n.analytical = sent.analytical
-                n.confident = sent.confident
-                n.tentative = sent.tentative
-                n.entity_id = entity.id
-                n.experience_id = sent.experience_id
-                n.sentence_id = sent.id
-                n.save()
-            sent.process_t = entity.current_t
-            sent.save()
-            entity.current_t =+ 1
-            entity.joy = ((sent.joy + entity.joy)/2)
-            entity.sadness = ((sent.sadness + entity.sadness)/2)
-            entity.fear = ((sent.fear + entity.fear)/2)
-            entity.anger = ((sent.anger + entity.anger)/2)
-            entity.analytical = ((sent.analytical + entity.analytical)/2)
-            entity.confident = ((sent.confident + entity.confident)/2)
-            entity.tentative = ((sent.tentative + entity.tentative)/2)
-            entity.save()
+        sent = Sentence.objects.filter(entity_id=entity.id, process_t=-1)[0]
+        ee = EntityExtraction()
+        text = sent.content
+        ee.params = 'text', text
+        ee.params = 'lang', 'en'
+        ee.params = 'country', 'US'
+        ee.params = 'min_confidence', '0.5'
+        a = ee.analyze()
+        for note in a.annotations:
+            n = Noun()
+            n.noun = note['id']
+            n.joy = sent.joy
+            n.sadness = sent.sadness
+            n.fear = sent.fear
+            n.anger = sent.anger
+            n.analytical = sent.analytical
+            n.confident = sent.confident
+            n.tentative = sent.tentative
+            n.entity_id = entity.id
+            n.experience_id = sent.experience_id
+            n.sentence_id = sent.id
+            n.save()
+        sent.process_t = entity.current_t
+        sent.save()
+        entity.current_t =+ 1
+        entity.joy = ((sent.joy + entity.joy)/2)z
+        entity.sadness = ((sent.sadness + entity.sadness)/2)
+        entity.fear = ((sent.fear + entity.fear)/2)
+        entity.anger = ((sent.anger + entity.anger)/2)
+        entity.analytical = ((sent.analytical + entity.analytical)/2)
+        entity.confident = ((sent.confident + entity.confident)/2)
+        entity.tentative = ((sent.tentative + entity.tentative)/2)
+        entity.save()
 
 
 @background(schedule=1, queue="experience")
