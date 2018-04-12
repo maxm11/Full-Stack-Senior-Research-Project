@@ -225,11 +225,14 @@ window.onload = function(){
   window.radarChart1 = new Chart(radarChartCanvas, {type:"radar", data:radarChartData, options:radarChartOptions});
 };
 </script>
+{% if entity.current_process %}
 <script>
   setTimeout(function() {
   location.reload();
 }, 1000);
 </script>
+{% else %}
+{% endif %}
 <!-- jQuery 3 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
