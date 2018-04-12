@@ -219,7 +219,14 @@ var radarChartCanvas = document.getElementById("radarChart1");
       //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
       maintainAspectRatio     : true,
       //Boolean - whether to make the chart responsive to window resizing
-      responsive              : true
+      responsive              : true,
+
+      scale: {
+        ticks:{
+          min : 0,
+          max : 1
+        }
+      }
     };
 
 window.onload = function(){
