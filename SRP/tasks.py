@@ -27,7 +27,7 @@ def entity_bg(ent_id):
     entity = Entity.objects.filter(pk=entity_id)[0]
 
     if entity.current_process:
-        sent_ar = Sentence.objects.filter(entity_id=entity.id, process_t=-1)[:5]
+        sent_ar = Sentence.objects.filter(entity_id=entity.id, process_t=-1)[0]
         for sent in sent_ar:
             ee = EntityExtraction()
             text = sent.content
@@ -53,6 +53,13 @@ def entity_bg(ent_id):
             sent.process_t = entity.current_t
             sent.save()
             entity.current_t =+ 1
+            entity.joy = ((sent.joy + entity.joy)/2)
+            entity.sadness = ((sent.sadness + entity.sadness)/2)
+            entity.fear = ((sent.fear + entity.fear)/2)
+            entity.anger = ((sent.anger + entity.anger)/2)
+            entity.analytical = ((sent.analytical + entity.analytical)/2)
+            entity.confident = ((sent.confident + entity.confident)/2)
+            entity.tentative = ((sent.tentative + entity.tentative)/2)
             entity.save()
 
 
