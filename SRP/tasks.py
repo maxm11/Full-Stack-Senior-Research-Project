@@ -62,7 +62,8 @@ def entity_bg(ent_id):
             entity.tentative = ((sent.tentative + entity.tentative)/2)
             entity.save()
         except IndexError:
-            pass
+            entity.current_process = False
+            entity.save()
 
 
 @background(schedule=1, queue="experience")
