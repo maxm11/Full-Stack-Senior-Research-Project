@@ -21,7 +21,7 @@ def div(x, y):
 def xsum(numbers):
     return sum(numbers)
 
-@background(schedule=1, queue="entity", repeat=59, repeat_until=None)
+@background(schedule=1, queue="entity")
 def entity_bg(ent_id):
     entity_id = int(ent_id)
     entity = Entity.objects.filter(pk=entity_id)[0]
