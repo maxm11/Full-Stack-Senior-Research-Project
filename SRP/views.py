@@ -90,7 +90,7 @@ def dashEntity(request, entity_id):
     # Time Step Variables
     sentcount = Sentence.objects.filter(entity_id=entity.id).count()
     try:
-        t_width = entity.current_t/sentcount
+        t_width = round(entity.current_t/sentcount, 2) * 100
     except ZeroDivisionError:
         t_width = 0
     context = gen_nbar_context()
