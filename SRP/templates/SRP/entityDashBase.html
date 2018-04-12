@@ -44,7 +44,7 @@
     <!-- ./col -->
     <div class="col-lg-4 col-xs-8">
       <!-- Apply any bg-* class to to the info-box to color it -->
-      <div class="info-box bg-gray">
+      <div class="info-box bg-gray" class="refresh">
         <a href="{% url 'toggleEntity' entity.id %}">
         <span class="info-box-icon">
           {% if entity.current_process %}
@@ -164,6 +164,7 @@
 {% endblock %}
 {% block javascript %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
+<div class="refresh">
 <script>
   // ChartJS
 // Radar Chart
@@ -225,10 +226,11 @@ window.onload = function(){
   window.radarChart1 = new Chart(radarChartCanvas, {type:"radar", data:radarChartData, options:radarChartOptions});
 };
 </script>
+</div>
 {% if entity.current_process %}
 <script>
   setTimeout(function() {
-  location.reload();
+  $(".refresh").load("{% url 'dashEntity' entity.id %} .refresh", function(){})
 }, 1000);
 </script>
 {% else %}
