@@ -85,7 +85,6 @@ class Noun(models.Model):
     noun = models.IntegerField()
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
-    sentence = models.ForeignKey(Sentence)
     create_t = models.IntegerField(default=0)
     process_t = models.IntegerField(default=-1)
 
