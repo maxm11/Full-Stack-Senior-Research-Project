@@ -72,7 +72,7 @@ def purge(request, entity_id):
     entity = get_object_or_404(Entity, pk=entity_id)
     entity.delete()
 
-    return HttpResponseRedirect(reverse('createEntity'), args=(entity.id, ))
+    return HttpResponseRedirect(reverse('createEntity'))
 
 @login_required
 @permission_required("man_experience")
@@ -81,7 +81,7 @@ def deleteExperience(request, entity_id, exp_id):
     experience = get_object_or_404(Experience, pk=exp_id, entity_id=entity_id)
     experience.delete()
 
-    return HttpResponseRedirect(reverse('createEntity'), args=(entity.id, ))
+    return HttpResponseRedirect(reverse('dashEntity', args=(entity.id,)))
 
 @login_required
 def dashEntity(request, entity_id):
