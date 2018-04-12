@@ -102,6 +102,7 @@ def dashEntity(request, entity_id):
 def toggle(request, entity_id):
     entity = get_object_or_404(Entity, pk=entity_id)
     entity.current_process = not entity.current_process
+    entity.save()
 
     return HttpResponseRedirect(reverse('dashEntity', args=(entity.id,)))
 
