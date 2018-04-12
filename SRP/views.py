@@ -38,7 +38,7 @@ def create(request):
     else:
         e = Entity(name=name,joy=joy,sadness=sadness,fear=fear,anger=anger,analytical=analytical,confident=confident,tentative=tentative)
         e.save()
-        entity_bg(e.id)
+        entity_bg(e.id, repeat=1)
         return HttpResponseRedirect(reverse('dashEntity', args=(e.id,)))
 
 @login_required
