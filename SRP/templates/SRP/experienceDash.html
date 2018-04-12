@@ -13,7 +13,7 @@
 {% block content_header %}
   <section class="content-header">
       <h1>
-        <a href="{% url 'dashEntity' entity.id %}">{{entity.name}}</a> : {{experience.name}}
+        <a href="{% url 'dashEntity' entity.id %}">{{entity.name}}</a> : {{experience.name}} <a href="{% url 'deleteExperience' entity.id experience.id%}"><i class="fas fa-minus-circle"></i></a>
       </h1>
       {% block breadcrumbs %}
         <ol class="breadcrumb">
