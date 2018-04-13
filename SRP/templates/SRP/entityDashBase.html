@@ -238,18 +238,27 @@ var radarChartCanvas = document.getElementById("radarChart1");
     };
 
 window.onload = function(){
-  window.radarChart1 = new Chart(radarChartCanvas, {type:"radar", data:radarChartData, options:radarChartOptions});
+  chart = new Chart(radarChartCanvas, {type:"radar", data:radarChartData, options:radarChartOptions});
 };
-</script>
-</div>
 {% if entity.current_process %}
-<script>
-  setTimeout(function() {
-  location.reload();
+setTimeout(function(chart) {
+  $.post("{% url 'entityChartData' entity.id %}",
+    {
+    },
+    function(data){
+      chart.data.datasets.forEach((dataset) => {
+        dataset.data = data
+        });
+      chart.update();
+    });
+    
+
 }, 1000);
-</script>
 {% else %}
 {% endif %}
+</script>
+</div>
+
 <!-- jQuery 3 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

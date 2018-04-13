@@ -5,7 +5,8 @@ from .models import Entity, Experience, Sentence, Noun
 from .tasks import experience_intake, noun_display, entity_bg
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def gen_nbar_context():
@@ -156,3 +157,10 @@ def editEntity(request, entity_id):
     context = gen_nbar_context()
     context.update(entity=entity)
     return render(request, 'SRP/editEntity.html', context)
+
+## AJAX
+@login_required
+@csrf_exempt
+def entityChartData(request, entity_id):
+    entity = get_object_or_404(Entity, pk=entity_id)
+    return JsonResponse([{'joy': entity.joy, 'sadness': entity.sadness, 'fear': entity.fear, 'anger': entity.anger, 'analytical': entity.analytical, 'confident': entity.confident, 'tentative': entity.tentative}])
