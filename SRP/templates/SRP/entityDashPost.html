@@ -2,7 +2,7 @@
 {% load static %}
 {% block entity_title %}
       <h1>
-        <a href="{% url 'dashEntity' entity.id %}"><i class="fas fa-chevron-left"></i>Go Back</a>
+        <a href="{% url 'dashEntity' entity.id %}" style="color: black;"><i class="fas fa-chevron-left" style="padding-right:10px;"></i>Go Back</a>
       </h1>
     {% endblock %}
 {% block info-box %}
@@ -23,7 +23,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <img src={{concept_img}}></img>
+            <img src={{concept_img}} style="display: block; margin-left: auto; margin-right: auto;"></img>
             <div class="table-responsive">
                 <table class="table no-margin">
                 <tr>
