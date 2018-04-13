@@ -246,8 +246,9 @@
 
   setTimeout(function() {
     $.get("https://basis.maxpmurphy.com/entity/11/data/", {}, function(data) {
-      window.chart.data.datasets.forEach((dataset) => {
-        dataset.data = this.data
+      //window.chart.data.datasets.forEach((dataset) => {
+        //dataset.data = this.data
+      currentChartData = JSON.parse(this.data);
       });
       window.chart.update();
     });
