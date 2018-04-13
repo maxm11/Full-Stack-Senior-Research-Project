@@ -26,10 +26,11 @@
             <img src={{concept_img}} style="display: block; margin-left: auto; margin-right: auto;"></img>
             <div class="table-responsive">
                 <table class="table no-margin">
-                <tr>
-                    <td><b>{{concept_title}}</b></td>
-                    <td>{{concept_desc}}</td>
-                </tr>
+                <td>
+                    <tr><b>{{concept_title}}</b></tr>
+                    <tr><i>Confidence : </i> {{concept_confidence}}</tr>
+                    <tr>{{concept_desc}}</tr>
+                </td>
                 </table>
             </div>
         </div>
