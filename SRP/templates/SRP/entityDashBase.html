@@ -242,7 +242,7 @@ window.onload = function(){
 };
 {% if entity.current_process %}
 setTimeout(function(chart) {
-  $.getJSON("{% url 'entityChartData' entity.id %}", {}, function(data){chart.data.datasets.forEach((dataset) => {dataset.data = data}); chart.update();});
+  $.getJSON("{% url 'entityChartData' entity.id %}", {}, function(data, chart){chart.data.datasets.forEach((dataset) => {dataset.data = data}); chart.update();});
     
 
 }, 1000);
