@@ -1,5 +1,10 @@
 {% extends 'SRP/entityDashBase.html' %}
 {% load static %}
+{% block entity_title %}
+      <h1>
+        <a href="{% url 'dashEntity' entity.id %}"><i class="fas fa-chevron-left"></i>Go Back</a>
+      </h1>
+    {% endblock %}
 {% block info-box %}
       <div class="info-box bg-white">
           <span class="info-box-icon"><i class="fas fa-lightbulb"></i></span>
@@ -39,12 +44,13 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <a href="{% url 'dashEntity' entity.id %}"><i class="fas fa-chevron-left"></i> <h3> Go Back </h3></a>
         <canvas id="radarChart2" style="position: relative; height: 400px;"></canvas>
     </div>
     <!-- /.box-body -->
 </div>
 <!-- /.box -->
+{% endblock %}
+{% block exp_list %}
 {% endblock %}
 {% block javascript %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
