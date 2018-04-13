@@ -31,6 +31,7 @@
   <div class="row">
     <div class="col-lg-8 col-xs-4">
       <!-- Apply any bg-* class to to the info-box to color it -->
+      {% block info-box %}
       <div class="info-box bg-white">
           <span class="info-box-icon"><i class="fa fa-comment"></i></span>
         <div class="info-box-content">
@@ -40,6 +41,7 @@
         <!-- /.info-box-content -->
       </div>
        <!-- /.info-box -->
+      {% endblock %}
     </div>
     <!-- ./col -->
     <div class="col-lg-4 col-xs-8">
@@ -76,6 +78,7 @@
   <div class="row">
     <!-- Left col -->
     <section class="col-lg-6">
+      {% block left%}
         <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title"><i class="fa fa-user-circle-o"></i> Current Emotional State</h3>
@@ -86,12 +89,13 @@
             </div>
             <!-- /.box-body -->
         </div>
+      {% endblock %}
     </section>
     <!-- /.Left col -->
     <!-- right col (We are only adding the ID to make the widgets sortable)-->
     <section class="col-lg-6">
 
-      {% block noun %}
+      {% block right %}
       {% endblock %}
 
     </section>

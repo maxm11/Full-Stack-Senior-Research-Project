@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from background_task import background
 from textblob import TextBlob
 from django_dandelion.datatxt import EntityExtraction
+import requests
 
 # Sample Tasks
 def add(x, y):
@@ -100,67 +101,79 @@ def experience_intake(exp_id, time):
                 exec("s." + tid + "=  score")
             s.save()
 
-def noun_display(noun, entity_id):
+@background(schedule=1)
+def noun_display(search, entity_id):
+    # Establish Context
     context = dict()
-    nounlist = Noun.objects.filter(entity_id=entity_id, noun=noun)
 
-    if nounlist.count() == 0:
-        context.update(search_error=(noun + " was not found."))
+    ee = EntityExtraction()
+    text = search
+    ee.params = 'text', text
+    ee.params = 'lang', 'en'
+    ee.params = 'country', 'US'
+    ee.params = 'min_confidence', '0.01'
+    a = ee.analyze()
+
+    if a.annotations:
+        concept = a.annotations[0]
+        concept_title = concept['title']
+        concept_id = concept['id']
+        concept_confidence = concept['confidence']
+        try:
+            params = {'action':'query', 'titles': concept_title, 'prop':'pageimages', 'format':'json', 'pithumbsize':'256'}
+            wiki_request = requests.post('https://en.wikipedia.org/w/api.php', params)
+            j = wiki_request.json()
+            concept_img = next( iter( (j['query']['pages'].values())))['thumbnail']['source']
+        except:
+            concept_img = ""
+        
+        try:
+            params = {'action':'query', 'titles': concept_title, 'prop':'extracts', 'format':'json', 'exsentences':'2', 'explaintext':''}
+            r = requests.post('https://en.wikipedia.org/w/api.php', params)
+            j = r.json()
+            concept_desc = next( iter( (j['query']['pages'].values())))['extract']
+
+        except:
+            concept_desc = ""
+    else:
+        context.update(search_error=(search + " is not a recognized concept."))
         return context
 
-    # Average Scores
-    '''
-    avg_score
-    avg_mag
-    avg_emo_happy
-    avg_emo_sad
-    avg_emo_suprised 
-    avg_emo_angry
-    avg_emo_bored
-    avg_emo_empty
-    avg_emo_enthusiasm
-    avg_emo_neutral
-    avg_emo_worry
-    avg_emo_love
-    '''
-    avg_score = Decimal()
-    avg_mag = Decimal()
-    avg_emo_happy = Decimal()
-    avg_emo_sad = Decimal()
-    avg_emo_suprised  = Decimal()
-    avg_emo_angry = Decimal()
-    avg_emo_bored = Decimal()
-    avg_emo_empty = Decimal()
-    avg_emo_enthusiasm = Decimal()
-    avg_emo_neutral = Decimal()
-    avg_emo_worry = Decimal()
-    avg_emo_love = Decimal()
-    for rec in nounlist:
-        avg_score += rec.sent_score
-        avg_mag += rec.sent_mag   
-        avg_emo_happy += rec.emo_happy
-        avg_emo_sad += rec.emo_sad       
-        avg_emo_suprised += rec.emo_suprised
-        avg_emo_angry += rec.emo_angry
-        avg_emo_bored += rec.emo_bored
-        avg_emo_empty += rec.emo_empty
-        avg_emo_enthusiasm += rec.emo_enthusiasm
-        avg_emo_neutral += rec.emo_neutral
-        avg_emo_worry += rec.emo_worry
-        avg_emo_love += rec.emo_love
 
-    avg_score /= nounlist.count()
-    avg_mag /= nounlist.count()
-    avg_emo_happy /= nounlist.count()
-    avg_emo_sad /= nounlist.count()
-    avg_emo_suprised /= nounlist.count()
-    avg_emo_angry /= nounlist.count()
-    avg_emo_bored /= nounlist.count()
-    avg_emo_empty /= nounlist.count()
-    avg_emo_enthusiasm /= nounlist.count()
-    avg_emo_neutral /= nounlist.count()
-    avg_emo_worry /= nounlist.count()
-    avg_emo_love /= nounlist.count()
+    # Get list of nouns
+    nounlist = Noun.objects.filter(entity_id=entity_id, noun=concept_id)
 
-    context.update(noun_name=noun, noun_score=avg_score, noun_mag=avg_mag, noun_emo_happy=avg_emo_happy, noun_emo_sad=avg_emo_sad, noun_emo_suprised=avg_emo_suprised, noun_emo_angry=avg_emo_angry, noun_emo_bored=avg_emo_bored, noun_emo_empty=avg_emo_empty, noun_emo_enthusiasm=avg_emo_enthusiasm, noun_emo_neutral=avg_emo_neutral, noun_emo_worry=avg_emo_worry, noun_emo_love=avg_emo_love)
-    return context
+    if nounlist:
+        # Average Scores
+        avg_joy = Decimal()
+        avg_sadness = Decimal()
+        avg_fear  = Decimal()
+        avg_anger = Decimal()
+        avg_analytical = Decimal()
+        avg_confident = Decimal()
+        avg_tentative = Decimal()
+        for rec in nounlist:
+            avg_joy += rec.joy
+            avg_sadness += rec.sadness
+            avg_fear  += rec.fear
+            avg_anger += rec.anger
+            avg_analytical += rec.analytical
+            avg_confident += rec.confident
+            avg_tentative += rec.tentative
+
+        avg_joy /= nounlist.count()
+        avg_sadness /= nounlist.count()
+        avg_fear  /= nounlist.count()
+        avg_anger /= nounlist.count()
+        avg_analytical /= nounlist.count()
+        avg_confident /= nounlist.count()
+        avg_tentative /= nounlist.count()
+
+        context.update(avg_joy = avg_joy, avg_sadness = avg_sadness, avg_fear  = avg_fear, avg_anger = avg_anger, avg_analytical = avg_analytical, avg_confident = avg_confident, avg_tentative = avg_tentative, concept_title=concept_title, concept_confidence=concept_confidence, concept_img=concept_img, concept_desc=concept_desc)
+        return context
+
+    else:
+        context.update(search_error=(concept_title + " is a recognized concept but was not present in the selected entity."))
+        return context
+
+    

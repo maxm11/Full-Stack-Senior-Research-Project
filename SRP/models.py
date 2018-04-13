@@ -23,13 +23,13 @@ class Entity(models.Model):
     tentative = models.DecimalField(default=0, max_digits=20, decimal_places=6)
 
     '''
-joy
-sadness
-fear 
-anger
-analytical
-confident
-tentative
+    joy
+    sadness
+    fear 
+    anger
+    analytical
+    confident
+    tentative
     '''
 
 class Experience(models.Model):
