@@ -162,4 +162,4 @@ def editEntity(request, entity_id):
 @csrf_exempt
 def entityChartData(request, entity_id):
     entity = get_object_or_404(Entity, pk=entity_id)
-    return JsonResponse([{'joy': entity.joy, 'sadness': entity.sadness, 'fear': entity.fear, 'anger': entity.anger, 'analytical': entity.analytical, 'confident': entity.confident, 'tentative': entity.tentative}], safe=False)
+    return JsonResponse([entity.joy, entity.sadness, entity.fear, entity.anger, entity.analytical, entity.confident, entity.tentative}], safe=False)
