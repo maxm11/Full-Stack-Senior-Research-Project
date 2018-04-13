@@ -23,10 +23,16 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <img src={{concept_img}} style="display: block; margin-left: auto; margin-right: auto;"></img><br>
-            <b style="font-size: 18px;">{{concept_title}}</b><br>
-            <b>Confidence : </b> {{concept_confidence}} <br>
-            {{concept_desc}}
+            <img src={{concept_img}} style="display: block; margin-left: auto; margin-right: auto;"></img>
+                <table class="table no-margin">
+                <tbody>
+                <td>
+                    <tr><b>{{concept_title}}</b></tr>
+                    <tr><b>Confidence : </b> {{concept_confidence}}</tr>
+                    <tr>{{concept_desc}}</tr>
+                </td>
+                </tbody>
+                </table>
         </div>
         <!-- /.box-body -->
     </div>
