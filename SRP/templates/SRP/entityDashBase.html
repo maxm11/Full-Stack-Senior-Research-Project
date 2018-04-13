@@ -238,13 +238,12 @@ var radarChartCanvas = document.getElementById("radarChart1");
     };
 
 window.onload = function(){
-  chart = new Chart(radarChartCanvas, {type:"radar", data:radarChartData, options:radarChartOptions});
+ var chart = new Chart(radarChartCanvas, {type:"radar", data:radarChartData, options:radarChartOptions});
 };
 {% if entity.current_process %}
 setTimeout(function(chart) {
   $.getJSON("{% url 'entityChartData' entity.id %}", {}, function(data, chart){chart.data.datasets.forEach((dataset) => {dataset.data = data}); chart.update();});
     
-
 }, 1000);
 {% else %}
 {% endif %}
