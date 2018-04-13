@@ -159,7 +159,6 @@ def editEntity(request, entity_id):
     return render(request, 'SRP/editEntity.html', context)
 
 ## AJAX
-@login_required
 @csrf_exempt
 def entityChartData(request, entity_id):
     entity = get_object_or_404(Entity, pk=entity_id)
