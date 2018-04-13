@@ -249,12 +249,12 @@
     });
     chart.update();
 }
-  setTimeout(function() {
-    var chart = new Chart(radarChartCanvas, {
+  var chart = new Chart(radarChartCanvas, {
       type: "radar",
       data: radarChartData,
       options: radarChartOptions
     });
+  setTimeout(function() {
     $.get("https://basis.maxpmurphy.com/entity/11/data/", {}, function(data) {
       //window.chart.data.datasets.forEach((dataset) => {
         //dataset.data = this.data
@@ -263,6 +263,7 @@
       var result = int_data.map(Number);
       removeData(chart);
       addData(chart, result);
+      $('.info-box-number').html = current_t;
       }
     );
 
