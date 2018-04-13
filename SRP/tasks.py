@@ -101,7 +101,6 @@ def experience_intake(exp_id, time):
                 exec("s." + tid + "=  score")
             s.save()
 
-@background(schedule=1)
 def noun_display(search, entity_id):
     # Establish Context
     context = dict()

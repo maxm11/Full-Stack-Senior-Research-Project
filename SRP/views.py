@@ -109,8 +109,6 @@ def toggle(request, entity_id):
 @login_required
 @permission_required('man_noun')
 def noun_search(request, entity_id):
-    # Implementation Alert
-    # Implement Time
     search = request.POST['search']
     entity = get_object_or_404(Entity, pk=entity_id)
     experiencelist = Experience.objects.filter(entity_id=entity.id).order_by('pk')[:5]
